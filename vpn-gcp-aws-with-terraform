@@ -1,0 +1,67 @@
+#list account name
+gcloud auth list
+# list project
+gcloud config list project
+
+#clone tutorial code
+gsutil cp gs://spls/gsp854/autonetdeploy-multicloudvpn2.tar .
+tar -xvf autonetdeploy-multicloudvpn2.tar
+cd autonetdeploy-multicloudvpn
+
+#================= regions ===========================
+#Field name 	    Google Cloud values 	          AWS values
+#Region Name 	    us-central1 	                  US East (us-east-1)
+#Location 	Council Bluffs, Iowa, North America 	Northern Virginia
+
+# GCP CLI access in GCP
+# In Cloud Shell, which is a Linux environment, gcloud manages credentials files under the ~/.config/gcloud directory.
+# To set up your Compute Engine default service account credentials, follow these steps
+# IAM -> Service Accounts -> Select Compute Engine Default -> Actions -> Manage Keys -> Add Key (Type JSON) 
+# Download <project-id>-<unique-id>.json
+
+# Created ~/.config/gcloud/credentials_autonetdeploy.json from ~/[PROJECT_ID]-[UNIQUE_ID].json.
+# Updated gcp_credentials_file_path in ~/autonetdeploy-startup/terraform/terraform.tfvars.
+./gcp_set_credentials.sh ~/[PROJECT_ID]-[UNIQUE_ID].json
+
+
+# AWS credentials
+export username=`whoami`
+mkdir /home/$username/.aws/
+touch /home/$username/.aws/credentials_autonetdeploy
+echo > /home/$username/.aws/credentials_autonetdeploy <<EOF
+[default]
+aws_access_key_id=<Your AWS Access Key>
+aws_secret_access_key=<Your AWS Secret Key>
+EOF
+export TF_VAR_aws_credentials_file_path=/home/$username/.aws/credentials_autonetdeploy
+
+#### Setting project
+export PROJECT_ID=$(gcloud config get-value project)
+gcloud config set project $PROJECT_ID
+./gcp_set_project.sh
+#Review the updated file to verify that your project-id value has been inserted into terraform/terraform.tfvars
+cd terraform
+terraform init
+terraform plan
+
+#### Using SSH #######################
+# Cloud Shell
+ssh-keygen -t rsa -f ~/.ssh/vm-ssh-key -C $username
+chmod 400 ~/.ssh/vm-ssh-key
+gcloud compute config-ssh --ssh-key-file=~/.ssh/vm-ssh-key
+
+# AWS
+# Import key pair
+
+################ Deploy with terraform =====
+## Cloud Shell
+cd ~/autonetdeploy-multicloudvpn/terraform
+terraform validate
+terraform plan
+terraform apply
+terraform output
+terraform show
+gcloud compute instances list
+ssh -i ~/.ssh/vm-ssh-key [GCP_EXTERNAL_IP]
+/tmp/run_iperf_to_ext.sh
+
