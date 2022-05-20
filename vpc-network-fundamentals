@@ -1,0 +1,7 @@
+VPC network fundamentals 
+-drop/create vpc
+-create VM
+-firewall
+Regions; Us-central1-c ,europe-west1-b
+IP:10.18.0.0/20
+10.132.0.0/20
