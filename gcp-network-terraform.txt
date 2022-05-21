@@ -16,3 +16,10 @@ terraform --version
 export GOOGLE_PROJECT=$(gcloud config get-value project)
 mkdir tfnet
 
+git clone https://github.com/zebraplane/gcp.git
+cd gcp/gcp-network-terraform
+
+terraform fmt
+terraform init
+terraform plan
+terraform apply
