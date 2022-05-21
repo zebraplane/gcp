@@ -1,0 +1,18 @@
+gcloud auth list
+gcloud config list project
+
+# install terraform https://www.terraform.io/downloads   platform amd64
+curl -o https://releases.hashicorp.com/terraform/1.2.0/terraform_1.2.0_linux_amd64.zip
+unzip terraform_0.12.24_linux_amd64.zip
+
+export PATH="$PATH:$HOME/terraform"
+cd /usr/bin
+sudo ln -s $HOME/terraform
+cd $HOME
+source ~/.bashrc
+terraform --version
+
+# GOOGLE_PROJECT is known to Terraform and allows you to run Terraform without explicitly defining the project name or project ID within your Terraform scripts.
+export GOOGLE_PROJECT=$(gcloud config get-value project)
+mkdir tfnet
+
