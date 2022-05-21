@@ -1,6 +1,10 @@
 #https://github.com/terraform-google-modules/terraform-docs-samples/blob/main/internal_http_lb_with_mig_backend/main.tf
 #https://github.com/terraform-google-modules/terraform-docs-samples/blob/main/cloudrun_vpc_access_connector/main.tf
 #https://github.com/terraform-google-modules/terraform-docs-samples/blob/main/sql_mysql_instance_private_ip/main.tf
+#https://cloud.google.com/load-balancing/docs/firewall-rules
+#https://cloud.google.com/load-balancing/docs/l7-internal/setting-up-l7-internal#configure_firewall_rules
+# https://cloud.google.com/load-balancing/docs/https/setting-up-reg-ext-https-serverless
+# https://cloud.google.com/load-balancing/docs/negs/serverless-neg-concepts
 
 # VPC network
 resource "google_compute_network" "ilb_network" {
