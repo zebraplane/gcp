@@ -5,3 +5,40 @@ VPC network fundamentals
 Regions; Us-central1-c ,europe-west1-b
 IP:10.18.0.0/20
 10.132.0.0/20
+
+
+gcloud auth list
+gcloud config list project
+
+# Set default zone and region
+#gcloud config set compute/zone us-central1-a
+#gcloud config set compute/region us-central1
+
+sudo apt install iputils-ping
+
+# Create network
+gcloud compute networks create labnet --subnet-mode=custom
+gcloud compute networks subnets create labnet-sub --network labnet --region us-central1 --range 10.0.0.0/28
+gcloud compute networks list
+gcloud compute networks describe NETWORK_NAME
+gcloud compute networks subnets list
+
+# Firewall
+gcloud compute firewall-rules create labnet-allow-internal --network=labnet --action=ALLOW \
+ 	--rules=icmp,tcp:22 	--source-ranges=0.0.0.0/0
+# view rule details
+gcloud compute firewall-rules list --sort-by=NETWORK
+gcloud compute firewall-rules describe [FIREWALL_RULE_NAME]
+
+# Deny rule
+gcloud compute firewall-rules create privatenet-deny  --network=privatenet  --action=DENY \
+    --rules=icmp,tcp:22   --source-ranges=0.0.0.0/0
+    
+# Create VM
+gcloud compute instances create pnet-vm --zone=us-central1-c --machine-type=n1-standard-1 --subnet=private-sub
+  
+gcloud compute instances list --sort-by=ZONE
+
+
+   
+

@@ -1,0 +1,29 @@
+gcloud auth list
+gcloud config list project
+
+# create 2 VM's with web-server tag
+
+# install nginx
+sudo apt-get install nginx-light -y
+sudo nano /var/www/html/index.nginx-debian.html
+
+#Firewall rules
+
+# Create test vm
+gcloud compute instances create test-vm --machine-type=f1-micro --subnet=default --zone=us-central1-a
+
+# List firewall rules
+gcloud compute firewall-rules list
+# delete firewall rule
+gcloud compute firewall-rules delete allow-http-web-server
+
+# permissions to manage network for SA
+# Compute Engine > Compute Network Admin (list FW rules but not delete)
+# Compute Engine > Compute Security Admin (modify FW rules)
+# Create key and download credentials.json
+
+# Active Service Account on VM
+gcloud auth activate-service-account --key-file credentials.json
+gcloud compute firewall-rules list
+
+##############
