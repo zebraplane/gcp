@@ -1,0 +1,1839 @@
+<!DOCTYPE html>
+<html class="mdl-js" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<script src="Building%20a%20VPN%20Between%20Google%20Cloud%20and%20AWS%20with%20Terraform%20|%20Google%20Cloud%20Skills%20Boost_files/nr-1216.js"></script><script type="text/javascript" async="" src="Building%20a%20VPN%20Between%20Google%20Cloud%20and%20AWS%20with%20Terraform%20|%20Google%20Cloud%20Skills%20Boost_files/recaptcha__en.js" crossorigin="anonymous" integrity="sha384-/iQ3pP5Zp4fD1rguiVgUcA3QJDibOZveudin4X8yHdfRi2QqesZ/FnO4f4VjeD8/"></script><script type="text/javascript" async="" src="Building%20a%20VPN%20Between%20Google%20Cloud%20and%20AWS%20with%20Terraform%20|%20Google%20Cloud%20Skills%20Boost_files/analytics.js"></script><script type="text/javascript" async="" src="Building%20a%20VPN%20Between%20Google%20Cloud%20and%20AWS%20with%20Terraform%20|%20Google%20Cloud%20Skills%20Boost_files/recaptcha__en.js" crossorigin="anonymous" integrity="sha384-/iQ3pP5Zp4fD1rguiVgUcA3QJDibOZveudin4X8yHdfRi2QqesZ/FnO4f4VjeD8/"></script><script async="" src="Building%20a%20VPN%20Between%20Google%20Cloud%20and%20AWS%20with%20Terraform%20|%20Google%20Cloud%20Skills%20Boost_files/gtm.js"></script><script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","errorBeacon":"bam.nr-data.net","licenseKey":"caff0d62ed","applicationID":"587285446","transactionName":"IQ1XRUEOVV1dFxlRXAEXSlRATkpZVxI=","queueTime":0,"applicationTime":381,"agent":""}</script>
+<script type="text/javascript">(window.NREUM||(NREUM={})).init={ajax:{deny_list:["bam.nr-data.net"]}};(window.NREUM||(NREUM={})).loader_config={licenseKey:"caff0d62ed",applicationID:"587285446"};window.NREUM||(NREUM={}),__nr_require=function(t,e,n){function r(n){if(!e[n]){var i=e[n]={exports:{}};t[n][0].call(i.exports,function(e){var i=t[n][1][e];return r(i||e)},i,i.exports)}return e[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var i=0;i<n.length;i++)r(n[i]);return r}({1:[function(t,e,n){function r(){}function i(t,e,n,r){return function(){return s.recordSupportability("API/"+e+"/called"),o(t+e,[u.now()].concat(c(arguments)),n?null:this,r),n?void 0:this}}var o=t("handle"),a=t(9),c=t(10),f=t("ee").get("tracer"),u=t("loader"),s=t(4),d=NREUM;"undefined"==typeof window.newrelic&&(newrelic=d);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],l="api-",v=l+"ixn-";a(p,function(t,e){d[e]=i(l,e,!0,"api")}),d.addPageAction=i(l,"addPageAction",!0),d.setCurrentRouteName=i(l,"routeName",!0),e.exports=newrelic,d.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(t,e){var n={},r=this,i="function"==typeof e;return o(v+"tracer",[u.now(),t,n],r),function(){if(f.emit((i?"":"no-")+"fn-start",[u.now(),r,i],n),i)try{return e.apply(this,arguments)}catch(t){throw f.emit("fn-err",[arguments,this,t],n),t}finally{f.emit("fn-end",[u.now()],n)}}}};a("actionText,setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(t,e){m[e]=i(v,e)}),newrelic.noticeError=function(t,e){"string"==typeof t&&(t=new Error(t)),s.recordSupportability("API/noticeError/called"),o("err",[t,u.now(),!1,e])}},{}],2:[function(t,e,n){function r(t){if(NREUM.init){for(var e=NREUM.init,n=t.split("."),r=0;r<n.length-1;r++)if(e=e[n[r]],"object"!=typeof e)return;return e=e[n[n.length-1]]}}e.exports={getConfiguration:r}},{}],3:[function(t,e,n){var r=!1;try{var i=Object.defineProperty({},"passive",{get:function(){r=!0}});window.addEventListener("testPassive",null,i),window.removeEventListener("testPassive",null,i)}catch(o){}e.exports=function(t){return r?{passive:!0,capture:!!t}:!!t}},{}],4:[function(t,e,n){function r(t,e){var n=[a,t,{name:t},e];return o("storeMetric",n,null,"api"),n}function i(t,e){var n=[c,t,{name:t},e];return o("storeEventMetrics",n,null,"api"),n}var o=t("handle"),a="sm",c="cm";e.exports={constants:{SUPPORTABILITY_METRIC:a,CUSTOM_METRIC:c},recordSupportability:r,recordCustom:i}},{}],5:[function(t,e,n){function r(){return c.exists&&performance.now?Math.round(performance.now()):(o=Math.max((new Date).getTime(),o))-a}function i(){return o}var o=(new Date).getTime(),a=o,c=t(11);e.exports=r,e.exports.offset=a,e.exports.getLastTimestamp=i},{}],6:[function(t,e,n){function r(t,e){var n=t.getEntries();n.forEach(function(t){"first-paint"===t.name?l("timing",["fp",Math.floor(t.startTime)]):"first-contentful-paint"===t.name&&l("timing",["fcp",Math.floor(t.startTime)])})}function i(t,e){var n=t.getEntries();if(n.length>0){var r=n[n.length-1];if(u&&u<r.startTime)return;var i=[r],o=a({});o&&i.push(o),l("lcp",i)}}function o(t){t.getEntries().forEach(function(t){t.hadRecentInput||l("cls",[t])})}function a(t){var e=navigator.connection||navigator.mozConnection||navigator.webkitConnection;if(e)return e.type&&(t["net-type"]=e.type),e.effectiveType&&(t["net-etype"]=e.effectiveType),e.rtt&&(t["net-rtt"]=e.rtt),e.downlink&&(t["net-dlink"]=e.downlink),t}function c(t){if(t instanceof y&&!w){var e=Math.round(t.timeStamp),n={type:t.type};a(n),e<=v.now()?n.fid=v.now()-e:e>v.offset&&e<=Date.now()?(e-=v.offset,n.fid=v.now()-e):e=v.now(),w=!0,l("timing",["fi",e,n])}}function f(t){"hidden"===t&&(u=v.now(),l("pageHide",[u]))}if(!("init"in NREUM&&"page_view_timing"in NREUM.init&&"enabled"in NREUM.init.page_view_timing&&NREUM.init.page_view_timing.enabled===!1)){var u,s,d,p,l=t("handle"),v=t("loader"),m=t(8),g=t(3),y=NREUM.o.EV;if("PerformanceObserver"in window&&"function"==typeof window.PerformanceObserver){s=new PerformanceObserver(r);try{s.observe({entryTypes:["paint"]})}catch(h){}d=new PerformanceObserver(i);try{d.observe({entryTypes:["largest-contentful-paint"]})}catch(h){}p=new PerformanceObserver(o);try{p.observe({type:"layout-shift",buffered:!0})}catch(h){}}if("addEventListener"in document){var w=!1,b=["click","keydown","mousedown","pointerdown","touchstart"];b.forEach(function(t){document.addEventListener(t,c,g(!1))})}m(f)}},{}],7:[function(t,e,n){function r(t,e){if(!i)return!1;if(t!==i)return!1;if(!e)return!0;if(!o)return!1;for(var n=o.split("."),r=e.split("."),a=0;a<r.length;a++)if(r[a]!==n[a])return!1;return!0}var i=null,o=null,a=/Version\/(\S+)\s+Safari/;if(navigator.userAgent){var c=navigator.userAgent,f=c.match(a);f&&c.indexOf("Chrome")===-1&&c.indexOf("Chromium")===-1&&(i="Safari",o=f[1])}e.exports={agent:i,version:o,match:r}},{}],8:[function(t,e,n){function r(t){function e(){t(c&&document[c]?document[c]:document[o]?"hidden":"visible")}"addEventListener"in document&&a&&document.addEventListener(a,e,i(!1))}var i=t(3);e.exports=r;var o,a,c;"undefined"!=typeof document.hidden?(o="hidden",a="visibilitychange",c="visibilityState"):"undefined"!=typeof document.msHidden?(o="msHidden",a="msvisibilitychange"):"undefined"!=typeof document.webkitHidden&&(o="webkitHidden",a="webkitvisibilitychange",c="webkitVisibilityState")},{}],9:[function(t,e,n){function r(t,e){var n=[],r="",o=0;for(r in t)i.call(t,r)&&(n[o]=e(r,t[r]),o+=1);return n}var i=Object.prototype.hasOwnProperty;e.exports=r},{}],10:[function(t,e,n){function r(t,e,n){e||(e=0),"undefined"==typeof n&&(n=t?t.length:0);for(var r=-1,i=n-e||0,o=Array(i<0?0:i);++r<i;)o[r]=t[e+r];return o}e.exports=r},{}],11:[function(t,e,n){e.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(t,e,n){function r(){}function i(t){function e(t){return t&&t instanceof r?t:t?u(t,f,a):a()}function n(n,r,i,o,a){if(a!==!1&&(a=!0),!l.aborted||o){t&&a&&t(n,r,i);for(var c=e(i),f=m(n),u=f.length,s=0;s<u;s++)f[s].apply(c,r);var p=d[w[n]];return p&&p.push([b,n,r,c]),c}}function o(t,e){h[t]=m(t).concat(e)}function v(t,e){var n=h[t];if(n)for(var r=0;r<n.length;r++)n[r]===e&&n.splice(r,1)}function m(t){return h[t]||[]}function g(t){return p[t]=p[t]||i(n)}function y(t,e){l.aborted||s(t,function(t,n){e=e||"feature",w[n]=e,e in d||(d[e]=[])})}var h={},w={},b={on:o,addEventListener:o,removeEventListener:v,emit:n,get:g,listeners:m,context:e,buffer:y,abort:c,aborted:!1};return b}function o(t){return u(t,f,a)}function a(){return new r}function c(){(d.api||d.feature)&&(l.aborted=!0,d=l.backlog={})}var f="nr@context",u=t("gos"),s=t(9),d={},p={},l=e.exports=i();e.exports.getOrSetContext=o,l.backlog=d},{}],gos:[function(t,e,n){function r(t,e,n){if(i.call(t,e))return t[e];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(t,e,{value:r,writable:!0,enumerable:!1}),r}catch(o){}return t[e]=r,r}var i=Object.prototype.hasOwnProperty;e.exports=r},{}],handle:[function(t,e,n){function r(t,e,n,r){i.buffer([t],r),i.emit(t,e,n)}var i=t("ee").get("handle");e.exports=r,r.ee=i},{}],id:[function(t,e,n){function r(t){var e=typeof t;return!t||"object"!==e&&"function"!==e?-1:t===window?0:a(t,o,function(){return i++})}var i=1,o="nr@id",a=t("gos");e.exports=r},{}],loader:[function(t,e,n){function r(){if(!M++){var t=T.info=NREUM.info,e=m.getElementsByTagName("script")[0];if(setTimeout(u.abort,3e4),!(t&&t.licenseKey&&t.applicationID&&e))return u.abort();f(x,function(e,n){t[e]||(t[e]=n)});var n=a();c("mark",["onload",n+T.offset],null,"api"),c("timing",["load",n]);var r=m.createElement("script");0===t.agent.indexOf("http://")||0===t.agent.indexOf("https://")?r.src=t.agent:r.src=l+"://"+t.agent,e.parentNode.insertBefore(r,e)}}function i(){"complete"===m.readyState&&o()}function o(){c("mark",["domContent",a()+T.offset],null,"api")}var a=t(5),c=t("handle"),f=t(9),u=t("ee"),s=t(7),d=t(2),p=t(3),l=d.getConfiguration("ssl")===!1?"http":"https",v=window,m=v.document,g="addEventListener",y="attachEvent",h=v.XMLHttpRequest,w=h&&h.prototype,b=!1;NREUM.o={ST:setTimeout,SI:v.setImmediate,CT:clearTimeout,XHR:h,REQ:v.Request,EV:v.Event,PR:v.Promise,MO:v.MutationObserver};var E=""+location,x={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1216.min.js"},O=h&&w&&w[g]&&!/CriOS/.test(navigator.userAgent),T=e.exports={offset:a.getLastTimestamp(),now:a,origin:E,features:{},xhrWrappable:O,userAgent:s,disabled:b};if(!b){t(1),t(6),m[g]?(m[g]("DOMContentLoaded",o,p(!1)),v[g]("load",r,p(!1))):(m[y]("onreadystatechange",i),v[y]("onload",r)),c("mark",["firstbyte",a.getLastTimestamp()],null,"api");var M=0}},{}],"wrap-function":[function(t,e,n){function r(t,e){function n(e,n,r,f,u){function nrWrapper(){var o,a,s,p;try{a=this,o=d(arguments),s="function"==typeof r?r(o,a):r||{}}catch(l){i([l,"",[o,a,f],s],t)}c(n+"start",[o,a,f],s,u);try{return p=e.apply(a,o)}catch(v){throw c(n+"err",[o,a,v],s,u),v}finally{c(n+"end",[o,a,p],s,u)}}return a(e)?e:(n||(n=""),nrWrapper[p]=e,o(e,nrWrapper,t),nrWrapper)}function r(t,e,r,i,o){r||(r="");var c,f,u,s="-"===r.charAt(0);for(u=0;u<e.length;u++)f=e[u],c=t[f],a(c)||(t[f]=n(c,s?f+r:r,i,f,o))}function c(n,r,o,a){if(!v||e){var c=v;v=!0;try{t.emit(n,r,o,e,a)}catch(f){i([f,n,r,o],t)}v=c}}return t||(t=s),n.inPlace=r,n.flag=p,n}function i(t,e){e||(e=s);try{e.emit("internal-error",t)}catch(n){}}function o(t,e,n){if(Object.defineProperty&&Object.keys)try{var r=Object.keys(t);return r.forEach(function(n){Object.defineProperty(e,n,{get:function(){return t[n]},set:function(e){return t[n]=e,e}})}),e}catch(o){i([o],n)}for(var a in t)l.call(t,a)&&(e[a]=t[a]);return e}function a(t){return!(t&&t instanceof Function&&t.apply&&!t[p])}function c(t,e){var n=e(t);return n[p]=t,o(t,n,s),n}function f(t,e,n){var r=t[e];t[e]=c(r,n)}function u(){for(var t=arguments.length,e=new Array(t),n=0;n<t;++n)e[n]=arguments[n];return e}var s=t("ee"),d=t(10),p="nr@original",l=Object.prototype.hasOwnProperty,v=!1;e.exports=r,e.exports.wrapFunction=c,e.exports.wrapInPlace=f,e.exports.argsToArray=u},{}]},{},["loader"]);</script>
+<title>Building a VPN Between Google Cloud and AWS with Terraform | Google Cloud Skills Boost</title>
+<script>
+//<![CDATA[
+window.gon={};gon.current_user={"firstname":"Andrew","lastname":"Shlykov","fullname":"Andrew Shlykov","company":"Fannie Mae","email":"andrew_v_shlykov@fanniemae.com","origin":"run, direct","subscriptions":0,"id":"d21934b4a244982f01c6334d93d5c126","qlCreatedAt":"2022-04-18 16:14:32 UTC","optIn":true,"current_organization_role":null};gon.segment="j4Im8pqIko0Lxq4wVVZWMPMM0EroHUvb";gon.deployment="google-run";gon.content={"type":"Lab","id":3629,"name":"Building a VPN Between Google Cloud and AWS with Terraform"};
+//]]>
+</script>
+<script>
+  dataLayer = [
+    {user: gon.current_user},
+    {content: gon.content}
+  ];
+</script>
+<script>
+  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer',"GTM-5XSKHDX");
+</script>
+<script src="Building%20a%20VPN%20Between%20Google%20Cloud%20and%20AWS%20with%20Terraform%20|%20Google%20Cloud%20Skills%20Boost_files/webcomponents-loader-8583b47b01e40e6ea7bf1ad443a20b7e79bbdd5e.js"></script>
+<script src="Building%20a%20VPN%20Between%20Google%20Cloud%20and%20AWS%20with%20Terraform%20|%20Google%20Cloud%20Skills%20Boost_files/vendor-a84bd63ebad8cbea6bda06aeebb2d8207455f1b1d832ebfc452726.js"></script>
+<script src="Building%20a%20VPN%20Between%20Google%20Cloud%20and%20AWS%20with%20Terraform%20|%20Google%20Cloud%20Skills%20Boost_files/application-a2e9e341bdc76bd5320acba1d311bb93225a166aeda95d7ed.js"></script>
+<script src="Building%20a%20VPN%20Between%20Google%20Cloud%20and%20AWS%20with%20Terraform%20|%20Google%20Cloud%20Skills%20Boost_files/hallofmirrors-bb8a23a719853ac8e2668ea639d18555872cfbbc885d418.js"></script>
+<custom-style>
+  <style is="custom-style">[hidden] {
+  display: none !important;
+}
+
+</style>
+</custom-style>
+<custom-style>
+  <style is="custom-style">html {
+  --layout_-_display:  flex;;
+
+      --layout-inline_-_display:  inline-flex;;
+
+      --layout-horizontal_-_display:  var(--layout_-_display); --layout-horizontal_-_-ms-flex-direction:  row; --layout-horizontal_-_-webkit-flex-direction:  row; --layout-horizontal_-_flex-direction:  row;;
+
+      --layout-horizontal-reverse_-_display:  var(--layout_-_display); --layout-horizontal-reverse_-_-ms-flex-direction:  row-reverse; --layout-horizontal-reverse_-_-webkit-flex-direction:  row-reverse; --layout-horizontal-reverse_-_flex-direction:  row-reverse;;
+
+      --layout-vertical_-_display:  var(--layout_-_display); --layout-vertical_-_-ms-flex-direction:  column; --layout-vertical_-_-webkit-flex-direction:  column; --layout-vertical_-_flex-direction:  column;;
+
+      --layout-vertical-reverse_-_display:  var(--layout_-_display); --layout-vertical-reverse_-_-ms-flex-direction:  column-reverse; --layout-vertical-reverse_-_-webkit-flex-direction:  column-reverse; --layout-vertical-reverse_-_flex-direction:  column-reverse;;
+
+      --layout-wrap_-_-ms-flex-wrap:  wrap; --layout-wrap_-_-webkit-flex-wrap:  wrap; --layout-wrap_-_flex-wrap:  wrap;;
+
+      --layout-wrap-reverse_-_-ms-flex-wrap:  wrap-reverse; --layout-wrap-reverse_-_-webkit-flex-wrap:  wrap-reverse; --layout-wrap-reverse_-_flex-wrap:  wrap-reverse;;
+
+      --layout-flex-auto_-_-ms-flex:  1 1 auto; --layout-flex-auto_-_-webkit-flex:  1 1 auto; --layout-flex-auto_-_flex:  1 1 auto;;
+
+      --layout-flex-none_-_-ms-flex:  none; --layout-flex-none_-_-webkit-flex:  none; --layout-flex-none_-_flex:  none;;
+
+      --layout-flex_-_-ms-flex:  1 1 0.000000001px; --layout-flex_-_-webkit-flex:  1; --layout-flex_-_flex:  1; --layout-flex_-_-webkit-flex-basis:  0.000000001px; --layout-flex_-_flex-basis:  0.000000001px;;
+
+      --layout-flex-2_-_-ms-flex:  2; --layout-flex-2_-_-webkit-flex:  2; --layout-flex-2_-_flex:  2;;
+
+      --layout-flex-3_-_-ms-flex:  3; --layout-flex-3_-_-webkit-flex:  3; --layout-flex-3_-_flex:  3;;
+
+      --layout-flex-4_-_-ms-flex:  4; --layout-flex-4_-_-webkit-flex:  4; --layout-flex-4_-_flex:  4;;
+
+      --layout-flex-5_-_-ms-flex:  5; --layout-flex-5_-_-webkit-flex:  5; --layout-flex-5_-_flex:  5;;
+
+      --layout-flex-6_-_-ms-flex:  6; --layout-flex-6_-_-webkit-flex:  6; --layout-flex-6_-_flex:  6;;
+
+      --layout-flex-7_-_-ms-flex:  7; --layout-flex-7_-_-webkit-flex:  7; --layout-flex-7_-_flex:  7;;
+
+      --layout-flex-8_-_-ms-flex:  8; --layout-flex-8_-_-webkit-flex:  8; --layout-flex-8_-_flex:  8;;
+
+      --layout-flex-9_-_-ms-flex:  9; --layout-flex-9_-_-webkit-flex:  9; --layout-flex-9_-_flex:  9;;
+
+      --layout-flex-10_-_-ms-flex:  10; --layout-flex-10_-_-webkit-flex:  10; --layout-flex-10_-_flex:  10;;
+
+      --layout-flex-11_-_-ms-flex:  11; --layout-flex-11_-_-webkit-flex:  11; --layout-flex-11_-_flex:  11;;
+
+      --layout-flex-12_-_-ms-flex:  12; --layout-flex-12_-_-webkit-flex:  12; --layout-flex-12_-_flex:  12;;
+
+      
+
+      --layout-start_-_-ms-flex-align:  start; --layout-start_-_-webkit-align-items:  flex-start; --layout-start_-_align-items:  flex-start;;
+
+      --layout-center_-_-ms-flex-align:  center; --layout-center_-_-webkit-align-items:  center; --layout-center_-_align-items:  center;;
+
+      --layout-end_-_-ms-flex-align:  end; --layout-end_-_-webkit-align-items:  flex-end; --layout-end_-_align-items:  flex-end;;
+
+      --layout-baseline_-_-ms-flex-align:  baseline; --layout-baseline_-_-webkit-align-items:  baseline; --layout-baseline_-_align-items:  baseline;;
+
+      
+
+      --layout-start-justified_-_-ms-flex-pack:  start; --layout-start-justified_-_-webkit-justify-content:  flex-start; --layout-start-justified_-_justify-content:  flex-start;;
+
+      --layout-center-justified_-_-ms-flex-pack:  center; --layout-center-justified_-_-webkit-justify-content:  center; --layout-center-justified_-_justify-content:  center;;
+
+      --layout-end-justified_-_-ms-flex-pack:  end; --layout-end-justified_-_-webkit-justify-content:  flex-end; --layout-end-justified_-_justify-content:  flex-end;;
+
+      --layout-around-justified_-_-ms-flex-pack:  distribute; --layout-around-justified_-_-webkit-justify-content:  space-around; --layout-around-justified_-_justify-content:  space-around;;
+
+      --layout-justified_-_-ms-flex-pack:  justify; --layout-justified_-_-webkit-justify-content:  space-between; --layout-justified_-_justify-content:  space-between;;
+
+      --layout-center-center_-_-ms-flex-align:  var(--layout-center_-_-ms-flex-align); --layout-center-center_-_-webkit-align-items:  var(--layout-center_-_-webkit-align-items); --layout-center-center_-_align-items:  var(--layout-center_-_align-items); --layout-center-center_-_-ms-flex-pack:  var(--layout-center-justified_-_-ms-flex-pack); --layout-center-center_-_-webkit-justify-content:  var(--layout-center-justified_-_-webkit-justify-content); --layout-center-center_-_justify-content:  var(--layout-center-justified_-_justify-content);;
+
+      
+
+      --layout-self-start_-_-ms-align-self:  flex-start; --layout-self-start_-_-webkit-align-self:  flex-start; --layout-self-start_-_align-self:  flex-start;;
+
+      --layout-self-center_-_-ms-align-self:  center; --layout-self-center_-_-webkit-align-self:  center; --layout-self-center_-_align-self:  center;;
+
+      --layout-self-end_-_-ms-align-self:  flex-end; --layout-self-end_-_-webkit-align-self:  flex-end; --layout-self-end_-_align-self:  flex-end;;
+
+      --layout-self-stretch_-_-ms-align-self:  stretch; --layout-self-stretch_-_-webkit-align-self:  stretch; --layout-self-stretch_-_align-self:  stretch;;
+
+      --layout-self-baseline_-_-ms-align-self:  baseline; --layout-self-baseline_-_-webkit-align-self:  baseline; --layout-self-baseline_-_align-self:  baseline;;
+
+      
+
+      --layout-start-aligned_-_-ms-flex-line-pack:  start; --layout-start-aligned_-_-ms-align-content:  flex-start; --layout-start-aligned_-_-webkit-align-content:  flex-start; --layout-start-aligned_-_align-content:  flex-start;;
+
+      --layout-end-aligned_-_-ms-flex-line-pack:  end; --layout-end-aligned_-_-ms-align-content:  flex-end; --layout-end-aligned_-_-webkit-align-content:  flex-end; --layout-end-aligned_-_align-content:  flex-end;;
+
+      --layout-center-aligned_-_-ms-flex-line-pack:  center; --layout-center-aligned_-_-ms-align-content:  center; --layout-center-aligned_-_-webkit-align-content:  center; --layout-center-aligned_-_align-content:  center;;
+
+      --layout-between-aligned_-_-ms-flex-line-pack:  justify; --layout-between-aligned_-_-ms-align-content:  space-between; --layout-between-aligned_-_-webkit-align-content:  space-between; --layout-between-aligned_-_align-content:  space-between;;
+
+      --layout-around-aligned_-_-ms-flex-line-pack:  distribute; --layout-around-aligned_-_-ms-align-content:  space-around; --layout-around-aligned_-_-webkit-align-content:  space-around; --layout-around-aligned_-_align-content:  space-around;;
+
+      
+
+      --layout-block_-_display:  block;;
+
+      --layout-invisible_-_visibility:  hidden !important;;
+
+      --layout-relative_-_position:  relative;;
+
+      --layout-fit_-_position:  absolute; --layout-fit_-_top:  0; --layout-fit_-_right:  0; --layout-fit_-_bottom:  0; --layout-fit_-_left:  0;;
+
+      --layout-scroll_-_-webkit-overflow-scrolling:  touch; --layout-scroll_-_overflow:  auto;;
+
+      --layout-fullbleed_-_margin:  0; --layout-fullbleed_-_height:  100vh;;
+
+      
+
+      --layout-fixed-top_-_position:  fixed; --layout-fixed-top_-_top:  0; --layout-fixed-top_-_left:  0; --layout-fixed-top_-_right:  0;;
+
+      --layout-fixed-right_-_position:  fixed; --layout-fixed-right_-_top:  0; --layout-fixed-right_-_right:  0; --layout-fixed-right_-_bottom:  0;;
+
+      --layout-fixed-bottom_-_position:  fixed; --layout-fixed-bottom_-_right:  0; --layout-fixed-bottom_-_bottom:  0; --layout-fixed-bottom_-_left:  0;;
+
+      --layout-fixed-left_-_position:  fixed; --layout-fixed-left_-_top:  0; --layout-fixed-left_-_bottom:  0; --layout-fixed-left_-_left:  0;;
+}
+
+</style>
+</custom-style><style>[hidden] { display: none !important; }</style><custom-style>
+  <style is="custom-style">html {
+  --google-red-100: #f4c7c3;
+      --google-red-300: #e67c73;
+      --google-red-500: #db4437;
+      --google-red-700: #c53929;
+
+      --google-blue-100: #c6dafc;
+      --google-blue-300: #7baaf7;
+      --google-blue-500: #4285f4;
+      --google-blue-700: #3367d6;
+
+      --google-green-100: #b7e1cd;
+      --google-green-300: #57bb8a;
+      --google-green-500: #0f9d58;
+      --google-green-700: #0b8043;
+
+      --google-yellow-100: #fce8b2;
+      --google-yellow-300: #f7cb4d;
+      --google-yellow-500: #f4b400;
+      --google-yellow-700: #f09300;
+
+      --google-grey-100: #f5f5f5;
+      --google-grey-300: #e0e0e0;
+      --google-grey-500: #9e9e9e;
+      --google-grey-700: #616161;
+
+      
+
+      --paper-red-50: #ffebee;
+      --paper-red-100: #ffcdd2;
+      --paper-red-200: #ef9a9a;
+      --paper-red-300: #e57373;
+      --paper-red-400: #ef5350;
+      --paper-red-500: #f44336;
+      --paper-red-600: #e53935;
+      --paper-red-700: #d32f2f;
+      --paper-red-800: #c62828;
+      --paper-red-900: #b71c1c;
+      --paper-red-a100: #ff8a80;
+      --paper-red-a200: #ff5252;
+      --paper-red-a400: #ff1744;
+      --paper-red-a700: #d50000;
+
+      --paper-pink-50: #fce4ec;
+      --paper-pink-100: #f8bbd0;
+      --paper-pink-200: #f48fb1;
+      --paper-pink-300: #f06292;
+      --paper-pink-400: #ec407a;
+      --paper-pink-500: #e91e63;
+      --paper-pink-600: #d81b60;
+      --paper-pink-700: #c2185b;
+      --paper-pink-800: #ad1457;
+      --paper-pink-900: #880e4f;
+      --paper-pink-a100: #ff80ab;
+      --paper-pink-a200: #ff4081;
+      --paper-pink-a400: #f50057;
+      --paper-pink-a700: #c51162;
+
+      --paper-purple-50: #f3e5f5;
+      --paper-purple-100: #e1bee7;
+      --paper-purple-200: #ce93d8;
+      --paper-purple-300: #ba68c8;
+      --paper-purple-400: #ab47bc;
+      --paper-purple-500: #9c27b0;
+      --paper-purple-600: #8e24aa;
+      --paper-purple-700: #7b1fa2;
+      --paper-purple-800: #6a1b9a;
+      --paper-purple-900: #4a148c;
+      --paper-purple-a100: #ea80fc;
+      --paper-purple-a200: #e040fb;
+      --paper-purple-a400: #d500f9;
+      --paper-purple-a700: #aa00ff;
+
+      --paper-deep-purple-50: #ede7f6;
+      --paper-deep-purple-100: #d1c4e9;
+      --paper-deep-purple-200: #b39ddb;
+      --paper-deep-purple-300: #9575cd;
+      --paper-deep-purple-400: #7e57c2;
+      --paper-deep-purple-500: #673ab7;
+      --paper-deep-purple-600: #5e35b1;
+      --paper-deep-purple-700: #512da8;
+      --paper-deep-purple-800: #4527a0;
+      --paper-deep-purple-900: #311b92;
+      --paper-deep-purple-a100: #b388ff;
+      --paper-deep-purple-a200: #7c4dff;
+      --paper-deep-purple-a400: #651fff;
+      --paper-deep-purple-a700: #6200ea;
+
+      --paper-indigo-50: #e8eaf6;
+      --paper-indigo-100: #c5cae9;
+      --paper-indigo-200: #9fa8da;
+      --paper-indigo-300: #7986cb;
+      --paper-indigo-400: #5c6bc0;
+      --paper-indigo-500: #3f51b5;
+      --paper-indigo-600: #3949ab;
+      --paper-indigo-700: #303f9f;
+      --paper-indigo-800: #283593;
+      --paper-indigo-900: #1a237e;
+      --paper-indigo-a100: #8c9eff;
+      --paper-indigo-a200: #536dfe;
+      --paper-indigo-a400: #3d5afe;
+      --paper-indigo-a700: #304ffe;
+
+      --paper-blue-50: #e3f2fd;
+      --paper-blue-100: #bbdefb;
+      --paper-blue-200: #90caf9;
+      --paper-blue-300: #64b5f6;
+      --paper-blue-400: #42a5f5;
+      --paper-blue-500: #2196f3;
+      --paper-blue-600: #1e88e5;
+      --paper-blue-700: #1976d2;
+      --paper-blue-800: #1565c0;
+      --paper-blue-900: #0d47a1;
+      --paper-blue-a100: #82b1ff;
+      --paper-blue-a200: #448aff;
+      --paper-blue-a400: #2979ff;
+      --paper-blue-a700: #2962ff;
+
+      --paper-light-blue-50: #e1f5fe;
+      --paper-light-blue-100: #b3e5fc;
+      --paper-light-blue-200: #81d4fa;
+      --paper-light-blue-300: #4fc3f7;
+      --paper-light-blue-400: #29b6f6;
+      --paper-light-blue-500: #03a9f4;
+      --paper-light-blue-600: #039be5;
+      --paper-light-blue-700: #0288d1;
+      --paper-light-blue-800: #0277bd;
+      --paper-light-blue-900: #01579b;
+      --paper-light-blue-a100: #80d8ff;
+      --paper-light-blue-a200: #40c4ff;
+      --paper-light-blue-a400: #00b0ff;
+      --paper-light-blue-a700: #0091ea;
+
+      --paper-cyan-50: #e0f7fa;
+      --paper-cyan-100: #b2ebf2;
+      --paper-cyan-200: #80deea;
+      --paper-cyan-300: #4dd0e1;
+      --paper-cyan-400: #26c6da;
+      --paper-cyan-500: #00bcd4;
+      --paper-cyan-600: #00acc1;
+      --paper-cyan-700: #0097a7;
+      --paper-cyan-800: #00838f;
+      --paper-cyan-900: #006064;
+      --paper-cyan-a100: #84ffff;
+      --paper-cyan-a200: #18ffff;
+      --paper-cyan-a400: #00e5ff;
+      --paper-cyan-a700: #00b8d4;
+
+      --paper-teal-50: #e0f2f1;
+      --paper-teal-100: #b2dfdb;
+      --paper-teal-200: #80cbc4;
+      --paper-teal-300: #4db6ac;
+      --paper-teal-400: #26a69a;
+      --paper-teal-500: #009688;
+      --paper-teal-600: #00897b;
+      --paper-teal-700: #00796b;
+      --paper-teal-800: #00695c;
+      --paper-teal-900: #004d40;
+      --paper-teal-a100: #a7ffeb;
+      --paper-teal-a200: #64ffda;
+      --paper-teal-a400: #1de9b6;
+      --paper-teal-a700: #00bfa5;
+
+      --paper-green-50: #e8f5e9;
+      --paper-green-100: #c8e6c9;
+      --paper-green-200: #a5d6a7;
+      --paper-green-300: #81c784;
+      --paper-green-400: #66bb6a;
+      --paper-green-500: #4caf50;
+      --paper-green-600: #43a047;
+      --paper-green-700: #388e3c;
+      --paper-green-800: #2e7d32;
+      --paper-green-900: #1b5e20;
+      --paper-green-a100: #b9f6ca;
+      --paper-green-a200: #69f0ae;
+      --paper-green-a400: #00e676;
+      --paper-green-a700: #00c853;
+
+      --paper-light-green-50: #f1f8e9;
+      --paper-light-green-100: #dcedc8;
+      --paper-light-green-200: #c5e1a5;
+      --paper-light-green-300: #aed581;
+      --paper-light-green-400: #9ccc65;
+      --paper-light-green-500: #8bc34a;
+      --paper-light-green-600: #7cb342;
+      --paper-light-green-700: #689f38;
+      --paper-light-green-800: #558b2f;
+      --paper-light-green-900: #33691e;
+      --paper-light-green-a100: #ccff90;
+      --paper-light-green-a200: #b2ff59;
+      --paper-light-green-a400: #76ff03;
+      --paper-light-green-a700: #64dd17;
+
+      --paper-lime-50: #f9fbe7;
+      --paper-lime-100: #f0f4c3;
+      --paper-lime-200: #e6ee9c;
+      --paper-lime-300: #dce775;
+      --paper-lime-400: #d4e157;
+      --paper-lime-500: #cddc39;
+      --paper-lime-600: #c0ca33;
+      --paper-lime-700: #afb42b;
+      --paper-lime-800: #9e9d24;
+      --paper-lime-900: #827717;
+      --paper-lime-a100: #f4ff81;
+      --paper-lime-a200: #eeff41;
+      --paper-lime-a400: #c6ff00;
+      --paper-lime-a700: #aeea00;
+
+      --paper-yellow-50: #fffde7;
+      --paper-yellow-100: #fff9c4;
+      --paper-yellow-200: #fff59d;
+      --paper-yellow-300: #fff176;
+      --paper-yellow-400: #ffee58;
+      --paper-yellow-500: #ffeb3b;
+      --paper-yellow-600: #fdd835;
+      --paper-yellow-700: #fbc02d;
+      --paper-yellow-800: #f9a825;
+      --paper-yellow-900: #f57f17;
+      --paper-yellow-a100: #ffff8d;
+      --paper-yellow-a200: #ffff00;
+      --paper-yellow-a400: #ffea00;
+      --paper-yellow-a700: #ffd600;
+
+      --paper-amber-50: #fff8e1;
+      --paper-amber-100: #ffecb3;
+      --paper-amber-200: #ffe082;
+      --paper-amber-300: #ffd54f;
+      --paper-amber-400: #ffca28;
+      --paper-amber-500: #ffc107;
+      --paper-amber-600: #ffb300;
+      --paper-amber-700: #ffa000;
+      --paper-amber-800: #ff8f00;
+      --paper-amber-900: #ff6f00;
+      --paper-amber-a100: #ffe57f;
+      --paper-amber-a200: #ffd740;
+      --paper-amber-a400: #ffc400;
+      --paper-amber-a700: #ffab00;
+
+      --paper-orange-50: #fff3e0;
+      --paper-orange-100: #ffe0b2;
+      --paper-orange-200: #ffcc80;
+      --paper-orange-300: #ffb74d;
+      --paper-orange-400: #ffa726;
+      --paper-orange-500: #ff9800;
+      --paper-orange-600: #fb8c00;
+      --paper-orange-700: #f57c00;
+      --paper-orange-800: #ef6c00;
+      --paper-orange-900: #e65100;
+      --paper-orange-a100: #ffd180;
+      --paper-orange-a200: #ffab40;
+      --paper-orange-a400: #ff9100;
+      --paper-orange-a700: #ff6500;
+
+      --paper-deep-orange-50: #fbe9e7;
+      --paper-deep-orange-100: #ffccbc;
+      --paper-deep-orange-200: #ffab91;
+      --paper-deep-orange-300: #ff8a65;
+      --paper-deep-orange-400: #ff7043;
+      --paper-deep-orange-500: #ff5722;
+      --paper-deep-orange-600: #f4511e;
+      --paper-deep-orange-700: #e64a19;
+      --paper-deep-orange-800: #d84315;
+      --paper-deep-orange-900: #bf360c;
+      --paper-deep-orange-a100: #ff9e80;
+      --paper-deep-orange-a200: #ff6e40;
+      --paper-deep-orange-a400: #ff3d00;
+      --paper-deep-orange-a700: #dd2c00;
+
+      --paper-brown-50: #efebe9;
+      --paper-brown-100: #d7ccc8;
+      --paper-brown-200: #bcaaa4;
+      --paper-brown-300: #a1887f;
+      --paper-brown-400: #8d6e63;
+      --paper-brown-500: #795548;
+      --paper-brown-600: #6d4c41;
+      --paper-brown-700: #5d4037;
+      --paper-brown-800: #4e342e;
+      --paper-brown-900: #3e2723;
+
+      --paper-grey-50: #fafafa;
+      --paper-grey-100: #f5f5f5;
+      --paper-grey-200: #eeeeee;
+      --paper-grey-300: #e0e0e0;
+      --paper-grey-400: #bdbdbd;
+      --paper-grey-500: #9e9e9e;
+      --paper-grey-600: #757575;
+      --paper-grey-700: #616161;
+      --paper-grey-800: #424242;
+      --paper-grey-900: #212121;
+
+      --paper-blue-grey-50: #eceff1;
+      --paper-blue-grey-100: #cfd8dc;
+      --paper-blue-grey-200: #b0bec5;
+      --paper-blue-grey-300: #90a4ae;
+      --paper-blue-grey-400: #78909c;
+      --paper-blue-grey-500: #607d8b;
+      --paper-blue-grey-600: #546e7a;
+      --paper-blue-grey-700: #455a64;
+      --paper-blue-grey-800: #37474f;
+      --paper-blue-grey-900: #263238;
+
+      
+      --dark-divider-opacity: 0.12;
+      --dark-disabled-opacity: 0.38; 
+      --dark-secondary-opacity: 0.54;
+      --dark-primary-opacity: 0.87;
+
+      
+      --light-divider-opacity: 0.12;
+      --light-disabled-opacity: 0.3; 
+      --light-secondary-opacity: 0.7;
+      --light-primary-opacity: 1.0;
+}
+
+</style>
+</custom-style><custom-style>
+  <style is="custom-style">html {
+  --primary-text-color: var(--light-theme-text-color);
+      --primary-background-color: var(--light-theme-background-color);
+      --secondary-text-color: var(--light-theme-secondary-color);
+      --disabled-text-color: var(--light-theme-disabled-color);
+      --divider-color: var(--light-theme-divider-color);
+      --error-color: var(--paper-deep-orange-a700);
+
+      
+      --primary-color: var(--paper-indigo-500);
+      --light-primary-color: var(--paper-indigo-100);
+      --dark-primary-color: var(--paper-indigo-700);
+
+      --accent-color: var(--paper-pink-a200);
+      --light-accent-color: var(--paper-pink-a100);
+      --dark-accent-color: var(--paper-pink-a400);
+
+
+      
+      --light-theme-background-color: #ffffff;
+      --light-theme-base-color: #000000;
+      --light-theme-text-color: var(--paper-grey-900);
+      --light-theme-secondary-color: #737373;  
+      --light-theme-disabled-color: #9b9b9b;  
+      --light-theme-divider-color: #dbdbdb;
+
+      
+      --dark-theme-background-color: var(--paper-grey-900);
+      --dark-theme-base-color: #ffffff;
+      --dark-theme-text-color: #ffffff;
+      --dark-theme-secondary-color: #bcbcbc;  
+      --dark-theme-disabled-color: #646464;  
+      --dark-theme-divider-color: #3c3c3c;
+
+      
+      --text-primary-color: var(--dark-theme-text-color);
+      --default-primary-color: var(--primary-color);
+}
+
+</style>
+</custom-style><script async="" src="Building%20a%20VPN%20Between%20Google%20Cloud%20and%20AWS%20with%20Terraform%20|%20Google%20Cloud%20Skills%20Boost_files/lazy.js"></script><script src="Building%20a%20VPN%20Between%20Google%20Cloud%20and%20AWS%20with%20Terraform%20|%20Google%20Cloud%20Skills%20Boost_files/loader.js"></script>
+<!--[if lt IE 9]>
+<script src='http://html5shim.googlecode.com/svn/trunk/html5.js' type='text/javascript'></script>
+<![endif]-->
+<!--[endif]>  <![endif]-->
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "WebSite",
+  "url": "https://www.qwiklabs.com/",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://www.qwiklabs.com/catalog?keywords={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+<script id="ze-snippet" src="Building%20a%20VPN%20Between%20Google%20Cloud%20and%20AWS%20with%20Terraform%20|%20Google%20Cloud%20Skills%20Boost_files/snippet.js"></script>
+
+
+<meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="pl4DG8qJyB4NoryN3wgepBkqFNiXoZznRGn0esJ6LjYRlBrVCS6O2xHUV9GfqIu8sUFzayyEIOl2Ht359FmQfg==">
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport">
+<meta content="1rRsY0INj8RvwB5EF5pwdxt2A2P9aDgAlsICaJ0d5w0" name="google-site-verification">
+<meta content="#3681E4" property="msapplication-TileColor">
+<meta content="/favicon-144.png" property="msapplication-TileImage">
+<meta content="[{&quot;id&quot;:&quot;recaptcha_experiment&quot;,&quot;optimize_id&quot;:&quot;dpViOcLkT3qS4TvL2mRojA&quot;,&quot;title&quot;:&quot;No Recaptcha shown for trusted users&quot;,&quot;variant_index&quot;:0,&quot;variant&quot;:&quot;original&quot;}]" name="active-experiments">
+<meta content="{&quot;userId&quot;:7380084}" name="help-api-product-data">
+<meta content="In this lab, you will use Terraform to to create secure, private, site-to-site connections between Google Cloud and Amazon Web Services (AWS) using virtual private networks (VPNs)." name="description">
+<meta content="Qwiklabs" name="author">
+<meta content="Building a VPN Between Google Cloud and AWS with Terraform | Google Cloud Skills Boost" property="og:title">
+<meta content="website" property="og:type">
+<meta content="/favicon-144.png" property="og:image">
+<meta content="Qwiklabs" property="og:site_name">
+<meta content="In this lab, you will use Terraform to to create secure, private, site-to-site connections between Google Cloud and Amazon Web Services (AWS) using virtual private networks (VPNs)." property="og:description">
+<meta content="/qwiklabs_logo_900x887.png" property="og:logo" size="900x887">
+<meta content="/qwiklabs_logo_994x187.png" property="og:logo" size="994x187">
+
+
+<meta property="og:url" content="https://www.cloudskillsboost.google/focuses/17869?parent=catalog"><link href="https://www.cloudskillsboost.google/focuses/17869?parent=catalog" rel="canonical">
+<link color="#3681E4" href="https://www.cloudskillsboost.google/favicon-svg.svg" rel="mask-icon">
+<link href="https://www.cloudskillsboost.google/favicon-180.png" rel="apple-touch-icon-precomposed">
+<link href="https://cdn.qwiklabs.com/X46FrQX4iLxHW5MxL8jICvgZM0evMEKscCeQO%2BazGdo%3D" rel="shortcut icon" type="image/x-icon">
+
+
+
+<link rel="stylesheet" media="screen" href="Building%20a%20VPN%20Between%20Google%20Cloud%20and%20AWS%20with%20Terraform%20|%20Google%20Cloud%20Skills%20Boost_files/css.css">
+
+
+<link rel="stylesheet" media="all" href="Building%20a%20VPN%20Between%20Google%20Cloud%20and%20AWS%20with%20Terraform%20|%20Google%20Cloud%20Skills%20Boost_files/application-5eb9fd8400952066c032a630fd66d7a3d7237147ce2920ea.css">
+
+<style>
+  :root {
+    --primary-text-on-surface-color: #1a73e8;
+    --primary-text-on-surface-color-dark: #1568d6;
+    --primary-text-on-surface-color-darker: #135ec1;
+    --primary-text-on-surface-color-darkest: #1154ac;
+    --primary-surface-color: #1a73e8;
+    --primary-surface-color-rgb: 26,115,232;
+    --primary-surface-color-light: #d1e3fa;
+    --primary-surface-color-lightest: #e8f1fd;
+    --text-on-primary-color: #ffffff;
+    --accent-text-on-surface-color: #f29900;
+    --accent-surface-color: #f9ab00;
+    --accent-surface-color-rgb: 249,171,0;
+    --accent-surface-color-light: #ffefcc;
+    --text-on-accent-color: #202124;
+  }
+</style>
+
+
+
+</head>
+<body class="lab-show l-full no-nav application-new focuses focuses-show lab-show l-full no-nav ">
+<noscript>
+<iframe height='0' src='https://www.googletagmanager.com/ns.html?id=GTM-5XSKHDX' style='display:none;visibility:hidden;' width='0'></iframe>
+</noscript>
+<div class="header-container light-theme">
+<div class="header">
+<ql-toolbar jumpenabled="">
+<div class="header__title" slot="title">
+<ql-icon-button label="Back" href="https://www.cloudskillsboost.google/catalog?format%5B%5D=labs&amp;keywords=&amp;language%5B%5D=en&amp;locale=&amp;page=3&amp;role%5B%5D=cloud-network-engineer" id="d655feacce6ff112" target="_self" tip="Back">arrow_back</ql-icon-button>
+<h1 class="ql-headline-6">Building a VPN Between Google Cloud and AWS with Terraform</h1>
+</div>
+<div class="header__actions" slot="action">
+<ql-icon-button icon="share" id="share_3629" label="Share on social media" tip="Share"></ql-icon-button>
+<ql-menu for="share_3629" style="left: -1000px; top: -1000px; opacity: 0; visibility: hidden;" tabindex="-1" aria-hidden="true" role="menu" aria-labelledby="share_3629">
+<ql-menu-item data-analytics-action="Shared to LinkedIn Feed." data-analytics-category="Lab" data-analytics-label="Building a VPN Between Google Cloud and AWS with Terraform" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.cloudskillsboost.google%2Fcatalog_lab%2F3629%3Futm_medium%3Dsocial%26utm_source%3Dlinkedin%26utm_campaign%3Dql-social-share" icon="post_linkedin" label="Share on LinkedIn Feed" role="link" target="_blank">
+<span class="label">Share on LinkedIn Feed</span>
+</ql-menu-item>
+
+<ql-menu-item data-analytics-action="Shared to Twitter." data-analytics-category="Lab" data-analytics-label="Building a VPN Between Google Cloud and AWS with Terraform" href="https://twitter.com/intent/tweet?text=Excited%20to%20share%20what%20I%E2%80%99m%20learning%20on%20%23GoogleCloudSkillsBoost&amp;url=https%3A%2F%2Fwww.cloudskillsboost.google%2Fcatalog_lab%2F3629%3Futm_medium%3Dsocial%26utm_source%3Dtwitter%26utm_campaign%3Dql-social-share&amp;hashtags=" icon="post_twitter" label="Twitter" role="link" target="_blank">
+<span class="label">Twitter</span>
+</ql-menu-item>
+
+<ql-menu-item data-analytics-action="Shared to Facebook." data-analytics-category="Lab" data-analytics-label="Building a VPN Between Google Cloud and AWS with Terraform" href="https://facebook.com/sharer.php?display=popup&amp;u=https%3A%2F%2Fwww.cloudskillsboost.google%2Fcatalog_lab%2F3629%3Futm_medium%3Dsocial%26utm_source%3Dfacebook%26utm_campaign%3Dql-social-share" icon="post_facebook" label="Facebook" role="link" target="_blank">
+<span class="label">Facebook</span>
+</ql-menu-item>
+
+<ql-copyable-input label="Share Link" value="https://www.cloudskillsboost.google/catalog_lab/3629"></ql-copyable-input>
+</ql-menu>
+
+<ql-icon-button class="icon-button js-favorite-button favorite-button" data-id="17869" data-name="Building a VPN Between Google Cloud and AWS with Terraform" data-type="CatalogItem" href="/favorite.json?item_id=17869&amp;item_type=CatalogItem" id="CatalogItem-17869-favorite-button" label="Add to favorites" tip="Add to favorites">
+favorite_border
+</ql-icon-button>
+
+
+
+<ql-icon-button id="control-panel-target" style="display: none;">
+dashboard
+</ql-icon-button>
+<ql-menu for="control-panel-target" id="control-panel-menu" style="left: -1000px; top: -1000px; opacity: 0; visibility: hidden;" tabindex="-1" aria-hidden="true" role="menu" aria-labelledby="control-panel-target"></ql-menu>
+<ql-icon-button class="mobile-hide" icon="help_outline" id="help-menu-button" label="Open help menu" tip="Help"></ql-icon-button>
+<ql-menu for="help-menu-button" id="help-menu" style="left: -1000px; top: -1000px; opacity: 0; visibility: hidden;" tabindex="-1" aria-hidden="true" role="menu" aria-labelledby="help-menu-button">
+<ql-menu-item data-analytics-action="opened_help" data-analytics-label="lab" label="Help Center" onclick='hallofmirrors.helpService.startHelp({"productData":{"userId":7380084},"context":"lab"})'></ql-menu-item>
+<ql-menu-item href="https://support.google.com/qwiklabs/contact/contact_us" label="Email support" target="_blank"></ql-menu-item>
+<ql-menu-item label="Chat support" onclick="ql.chat.open()"></ql-menu-item>
+</ql-menu>
+
+<ql-icon-button class="mobile-hide" icon="language" id="language" label="Select your language preference" tip="Language"></ql-icon-button>
+<ql-menu for="language" style="left: -1000px; top: -1000px; opacity: 0; visibility: hidden;" tabindex="-1" aria-hidden="true" role="menu" aria-labelledby="language">
+<ql-menu-item data-analytics-action="changed_locale" data-analytics-label="ar" href="/focuses/17869?catalog_rank=%7B%22rank%22%3A22%2C%22num_filters%22%3A3%2C%22has_search%22%3Afalse%7D&amp;locale=ar&amp;parent=catalog" label="العربية‬‎" lang="ar"></ql-menu-item>
+<ql-menu-item data-analytics-action="changed_locale" data-analytics-label="de" href="/focuses/17869?catalog_rank=%7B%22rank%22%3A22%2C%22num_filters%22%3A3%2C%22has_search%22%3Afalse%7D&amp;locale=de&amp;parent=catalog" label="Deutsch" lang="de"></ql-menu-item>
+<ql-menu-item data-analytics-action="changed_locale" data-analytics-label="en" href="/focuses/17869?catalog_rank=%7B%22rank%22%3A22%2C%22num_filters%22%3A3%2C%22has_search%22%3Afalse%7D&amp;locale=en&amp;parent=catalog" label="English" lang="en"></ql-menu-item>
+<ql-menu-item data-analytics-action="changed_locale" data-analytics-label="es" href="/focuses/17869?catalog_rank=%7B%22rank%22%3A22%2C%22num_filters%22%3A3%2C%22has_search%22%3Afalse%7D&amp;locale=es&amp;parent=catalog" label="español (Latinoamérica)" lang="es"></ql-menu-item>
+<ql-menu-item data-analytics-action="changed_locale" data-analytics-label="fr" href="/focuses/17869?catalog_rank=%7B%22rank%22%3A22%2C%22num_filters%22%3A3%2C%22has_search%22%3Afalse%7D&amp;locale=fr&amp;parent=catalog" label="français" lang="fr"></ql-menu-item>
+<ql-menu-item data-analytics-action="changed_locale" data-analytics-label="fr_CA" href="/focuses/17869?catalog_rank=%7B%22rank%22%3A22%2C%22num_filters%22%3A3%2C%22has_search%22%3Afalse%7D&amp;locale=fr_CA&amp;parent=catalog" label="français (Canada)" lang="fr-CA"></ql-menu-item>
+<ql-menu-item data-analytics-action="changed_locale" data-analytics-label="he" href="/focuses/17869?catalog_rank=%7B%22rank%22%3A22%2C%22num_filters%22%3A3%2C%22has_search%22%3Afalse%7D&amp;locale=he&amp;parent=catalog" label="עברית" lang="he"></ql-menu-item>
+<ql-menu-item data-analytics-action="changed_locale" data-analytics-label="id" href="/focuses/17869?catalog_rank=%7B%22rank%22%3A22%2C%22num_filters%22%3A3%2C%22has_search%22%3Afalse%7D&amp;locale=id&amp;parent=catalog" label="bahasa Indonesia" lang="id"></ql-menu-item>
+<ql-menu-item data-analytics-action="changed_locale" data-analytics-label="it" href="/focuses/17869?catalog_rank=%7B%22rank%22%3A22%2C%22num_filters%22%3A3%2C%22has_search%22%3Afalse%7D&amp;locale=it&amp;parent=catalog" label="Italiano" lang="it"></ql-menu-item>
+<ql-menu-item data-analytics-action="changed_locale" data-analytics-label="ja" href="/focuses/17869?catalog_rank=%7B%22rank%22%3A22%2C%22num_filters%22%3A3%2C%22has_search%22%3Afalse%7D&amp;locale=ja&amp;parent=catalog" label="日本語" lang="ja"></ql-menu-item>
+<ql-menu-item data-analytics-action="changed_locale" data-analytics-label="ko" href="/focuses/17869?catalog_rank=%7B%22rank%22%3A22%2C%22num_filters%22%3A3%2C%22has_search%22%3Afalse%7D&amp;locale=ko&amp;parent=catalog" label="한국어" lang="ko"></ql-menu-item>
+<ql-menu-item data-analytics-action="changed_locale" data-analytics-label="pl" href="/focuses/17869?catalog_rank=%7B%22rank%22%3A22%2C%22num_filters%22%3A3%2C%22has_search%22%3Afalse%7D&amp;locale=pl&amp;parent=catalog" label="Polski" lang="pl"></ql-menu-item>
+<ql-menu-item data-analytics-action="changed_locale" data-analytics-label="pt_BR" href="/focuses/17869?catalog_rank=%7B%22rank%22%3A22%2C%22num_filters%22%3A3%2C%22has_search%22%3Afalse%7D&amp;locale=pt_BR&amp;parent=catalog" label="português (Brasil)" lang="pt-BR"></ql-menu-item>
+<ql-menu-item data-analytics-action="changed_locale" data-analytics-label="pt_PT" href="/focuses/17869?catalog_rank=%7B%22rank%22%3A22%2C%22num_filters%22%3A3%2C%22has_search%22%3Afalse%7D&amp;locale=pt_PT&amp;parent=catalog" label="português (Portugal)" lang="pt-PT"></ql-menu-item>
+<ql-menu-item data-analytics-action="changed_locale" data-analytics-label="ru" href="/focuses/17869?catalog_rank=%7B%22rank%22%3A22%2C%22num_filters%22%3A3%2C%22has_search%22%3Afalse%7D&amp;locale=ru&amp;parent=catalog" label="русский" lang="ru"></ql-menu-item>
+<ql-menu-item data-analytics-action="changed_locale" data-analytics-label="tr" href="/focuses/17869?catalog_rank=%7B%22rank%22%3A22%2C%22num_filters%22%3A3%2C%22has_search%22%3Afalse%7D&amp;locale=tr&amp;parent=catalog" label="Türkçe" lang="tr"></ql-menu-item>
+<ql-menu-item data-analytics-action="changed_locale" data-analytics-label="uk" href="/focuses/17869?catalog_rank=%7B%22rank%22%3A22%2C%22num_filters%22%3A3%2C%22has_search%22%3Afalse%7D&amp;locale=uk&amp;parent=catalog" label="український" lang="uk"></ql-menu-item>
+<ql-menu-item data-analytics-action="changed_locale" data-analytics-label="zh" href="/focuses/17869?catalog_rank=%7B%22rank%22%3A22%2C%22num_filters%22%3A3%2C%22has_search%22%3Afalse%7D&amp;locale=zh&amp;parent=catalog" label="简体中文" lang="zh"></ql-menu-item>
+<ql-menu-item data-analytics-action="changed_locale" data-analytics-label="zh_TW" href="/focuses/17869?catalog_rank=%7B%22rank%22%3A22%2C%22num_filters%22%3A3%2C%22has_search%22%3Afalse%7D&amp;locale=zh_TW&amp;parent=catalog" label="繁體中文" lang="zh-TW"></ql-menu-item>
+</ql-menu>
+
+<ql-icon-button id="my_account" label="My account" tip="My account">
+<ql-avatar></ql-avatar>
+</ql-icon-button>
+<ql-menu for="my_account" id="my_account_menu" style="max-height: 640px; left: -1000px; top: -1000px; opacity: 0; visibility: hidden;" tabindex="-1" aria-hidden="true" role="menu" aria-labelledby="my_account">
+<div class="my-account-menu">
+<ql-avatar class="l-mtl l-mbl" size="120"></ql-avatar>
+<div class="my-account-menu__user-info l-mbl">
+<h4 class="ql-subhead-1">Andrew Shlykov</h4>
+<p class="ql-body-2 text--light">andrew_v_shlykov@fanniemae.com</p>
+<p class="ql-body-2 text--light">
+</p>
+<a class="text--green ql-subhead-2" href="https://www.cloudskillsboost.google/my_account/payments"><ql-chip positive="">
+6954 Credits
+</ql-chip>
+</a></div>
+<div class="buttons l-mbl">
+<a class="button button--hairline" id="settings" href="https://www.cloudskillsboost.google/my_account/profile">Settings</a>
+</div>
+<hr>
+<ql-button data-analytics-action="clicked_sign_out" href="/users/sign_out" method="delete">
+Sign Out
+</ql-button>
+<div class="privacy l-mtl">
+<a target="_blank" class="ql-caption text--light" href="https://www.cloudskillsboost.google/privacy_policy">Privacy</a>
+<span class="ql-caption text--light l-mls l-mrs">·</span>
+<a class="ql-caption text--light" href="https://www.cloudskillsboost.google/terms_of_service">Terms</a>
+</div>
+</div>
+</ql-menu>
+
+</div>
+</ql-toolbar>
+
+</div>
+</div>
+
+<nav class="nav-panel js-nav-panel">
+<div class="nav-panel__logo">
+<div class="custom-logo"><img alt="Google Cloud Skills Boost" aria-label="Google Cloud Skills Boost" src="Building%20a%20VPN%20Between%20Google%20Cloud%20and%20AWS%20with%20Terraform%20|%20Google%20Cloud%20Skills%20Boost_files/PGyhmgS3zZncIEGywnx5UXsKwepRRFQ9BhAgWHNrlQ.png" height="24"></div>
+</div>
+<nav class="ql-sidenav">
+<ql-sidenav-item href="/" icon="home" label="Home"></ql-sidenav-item>
+
+<ql-sidenav-item href="/paths" icon="playlist_add_check" label="Paths"></ql-sidenav-item>
+
+<ql-sidenav-item active="" href="/catalog" icon="school" label="Catalog"></ql-sidenav-item>
+
+<ql-sidenav-item href="/profile" icon="event_note" label="Profile"></ql-sidenav-item>
+
+</nav>
+
+</nav>
+<div class="nav-panel__overlay js-nav-toggle"></div>
+
+<main class="js-main" id="jump-content">
+<div class="l-main-wrapper" id="main-wrapper">
+
+
+
+
+<div class="lab-assessment__tab js-open-lab-assessment-panel">
+<button class="js-lab-assessment-total-score">
+—/100
+</button>
+</div>
+<div aria-labelledby="lab-assessment-checkpoint" class="lab-assessment__panel js-lab-assessment-panel" role="dialog">
+<div class="lab-assessment__panel__header">
+<h4 id="lab-assessment-checkpoint">Checkpoints</h4>
+<ql-icon-button class="js-close-lab-assessment-panel" icon="arrow_forward" label="Close dialog"></ql-icon-button>
+</div>
+<div class="lab-assessment__step">
+<p class="lab-assessment__step__title" id="lab-assessment-step-title">
+Create service key for default service account
+</p>
+<div class="lab-assessment__step__action">
+<ql-button class="js-show-run-step-button" description="Create service key for default service account" step_no="1">
+Check my progress
+</ql-button>
+<p class="lab-assessment__step__score">
+<span class="js-assessment-step-score-1">
+</span>
+/ 50
+</p>
+</div>
+</div>
+
+<div class="lab-assessment__step">
+<p class="lab-assessment__step__title" id="lab-assessment-step-title">
+Deploy with Terraform
+</p>
+<div class="lab-assessment__step__action">
+<ql-button class="js-show-run-step-button" description="Deploy with Terraform" step_no="2">
+Check my progress
+</ql-button>
+<p class="lab-assessment__step__score">
+<span class="js-assessment-step-score-2">
+</span>
+/ 50
+</p>
+</div>
+</div>
+
+</div>
+<ql-drawer-container class="js-lab-state" data-analytics-payload="{&quot;label&quot;:&quot;Building a VPN Between Google Cloud and AWS with Terraform&quot;,&quot;lab_name&quot;:&quot;Building a VPN Between Google Cloud and AWS with Terraform&quot;,&quot;classroom_name&quot;:null,&quot;deployment&quot;:&quot;google-run&quot;}" data-focus-id="17869" data-lab-billing-limit="0.0" data-lab-duration="5400" data-parent="catalog" data-payment-required="" data-recaptcha-enabled="" id="lab-container">
+<ql-drawer id="terminal-drawer" slot="drawer" style="width: calc(100% - 480px); visibility: hidden;" tabindex="-1" aria-hidden="true" role="region" mode="side">
+<iframe allow="clipboard-read" class="terminal" id="embedded-resource"></iframe>
+</ql-drawer>
+<ql-drawer-content class="js-lab-wrapper" id="lab-content" slot="drawer-content">
+<ql-drawer-container id="lab-content-container">
+<ql-drawer id="control-panel-drawer" open="" slot="drawer" width="320" style="width: 320px; visibility: visible;" aria-hidden="false" role="region" mode="side">
+
+<ql-lab-control-panel class="ql-lab-control-panel__max-height control-panel js-lab-control-panel" connectionfiles="[]" labcontrolbutton="{&quot;disabled&quot;:false,&quot;pending&quot;:false,&quot;running&quot;:false}" labdetails="[]" labtimer="{&quot;ticking&quot;:false,&quot;secondsRemaining&quot;:5400}" studentresources="[]">
+<script src="Building%20a%20VPN%20Between%20Google%20Cloud%20and%20AWS%20with%20Terraform%20|%20Google%20Cloud%20Skills%20Boost_files/api.js"></script>
+        <script>
+          // Define function so that we can call it again later if we need to reset it
+          // This executes reCAPTCHA and then calls our callback.
+          function executeRecaptchaForStartLab() {
+            grecaptcha.ready(function() {
+              grecaptcha.execute('6LeVI8IUAAAAAJNdox5eTkYrw9SbvhZ1TFyv3iHr', {action: 'start_lab'}).then(function(token) {
+                setInputWithRecaptchaResponseTokenForStartLab('g-recaptcha-response-data-start-lab', token)
+              });
+            });
+          };
+          // Invoke immediately
+          executeRecaptchaForStartLab()
+
+          // Async variant so you can await this function from another async function (no need for
+          // an explicit callback function then!)
+          // Returns a Promise that resolves with the response token.
+          async function executeRecaptchaForStartLabAsync() {
+            return new Promise((resolve, reject) => {
+             grecaptcha.ready(async function() {
+                resolve(await grecaptcha.execute('6LeVI8IUAAAAAJNdox5eTkYrw9SbvhZ1TFyv3iHr', {action: 'start_lab'}))
+              });
+            })
+          };
+
+                    var setInputWithRecaptchaResponseTokenForStartLab = function(id, token) {
+            var element = document.getElementById(id);
+            element.value = token;
+          }
+
+        </script>
+<input type="hidden" name="g-recaptcha-response-data[start_lab]" id="g-recaptcha-response-data-start-lab" data-sitekey="6LeVI8IUAAAAAJNdox5eTkYrw9SbvhZ1TFyv3iHr" class="g-recaptcha g-recaptcha-response " style="" value="03AGdBq27-lbyesC3_ei-Yrt34gMeQOX1rkL67bADnnuRKOHMxFyFCwWy5mFFN5hn-YHRvVG-TjvsMdn6f_D98wFI40aiFAhOjU-kOcoyrU5Qvu4EdAM3MA9av8GspvhOp2gC6_C4X9MLOBu8MzMWXoK43Oy13m0nAXceQwWDqsBwPB5V5aIdeHOkxO2ByvpjiLwMJkG2ZKu8YZuV5BQxP9tbQd3d-BRLas2CLTcrfGn7QovoCfZmxb9N20ncWi2aRdhBeP6QXIeaO_MORMBAv8X4KtKzwJIIpeQcUH4u7aHP42ZqPL-OOkZsEuA69xN8eBFGu8kJD03z1WNf83fb9dmhgEptyaNyafSkGYwe1I7cEFNbXSFr6khIkyvbJhiXxBpoj7zt9pQhGVRJDjCrHbZiBwK9Lyk2GnhqmI1ceOjht5ft87igz8r9loGcBja97uWu6ZxUgccxrwSkItVjsoNUFaCFXXytyTHgwoqh11KfWPE8dO9vz4hQUIPVrToF8wfquM5JsFlYTqLNWdYxp5W1pNQXVSW9Aj02P5qEUJL7I55d3vRW_3OYXXbO5Pev2uxiJLXlMyuCyDF95oIQUmTmgSaYYtLb9nz7jjs1quGpiS3_DfXVxsQfOnfyz9C_w851S9DodFKzn-rF2E5HEZtv5-2hWldJwvsowYzt7WJ6xm286cUCLJTTZqnJyh2r7Oxd6NpUoHQLin0hkoMFMyTk5jUuPwL35EomRvfmzon6t17BOvKhSMYbez3ZrLfCVl9uBH-OlQSDW3J9vmYRHr6_Iq4Qgk7OeXq6JFF7X1VP3Uc6LCDPgHPIz5oB6Tm511SB9Yw7UiWMhHA6kTVjv0JvUhumxjf0FNqs8Wn-hG39nhZ1f6XipUV0RnyLCbuFu-uzRDulMKvVsxJBHM-v89uLL0shP8SwiFfW9OLfqv-u02580n4PbptT0xiCHVotg2J_R-p6Bs4kISikdSHlpkDQOGLpnbktCRXk1nimVokR2W-bQ2kmLzI440j1-c1Tcs1tpI3hEPnlvRkM7J-jSi6WTGvLcHGp9Gvfn6htJpL9CPn05CtAPsJfm58JmwypW94MICgd2wqTAj0ROM6ZdD6nodyOCrkxXSFraJHVNq2pmhqnhcavo0AThdVZzUOWvjeWJq44KTozyNG8CoUnr6aUuH8mUrLzPjldJRub3iKxoQnQDwDGj1Mk"><div style="width: 304px; height: 78px;"><div><iframe title="reCAPTCHA" src="Building%20a%20VPN%20Between%20Google%20Cloud%20and%20AWS%20with%20Terraform%20|%20Google%20Cloud%20Skills%20Boost_files/anchor.html" role="presentation" name="a-us9okny5t1ig" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox allow-storage-access-by-user-activation" width="304" height="78" frameborder="0"></iframe></div><textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"></textarea></div>
+
+<div aria-live="polite" class="hidden" id="recaptcha-v2-start-lab" slot="recaptcha">
+<script src="Building%20a%20VPN%20Between%20Google%20Cloud%20and%20AWS%20with%20Terraform%20|%20Google%20Cloud%20Skills%20Boost_files/api_002.js" async="" defer="defer"></script>
+<div data-sitekey="6LeOI8IUAAAAAPkHlMAE9NReCD_1WD81iYlBlCnV" data-callback="recaptchaComplete" data-expired-callback="expireV2Token" class="g-recaptcha "><div style="width: 304px; height: 78px;"><div><iframe title="reCAPTCHA" src="Building%20a%20VPN%20Between%20Google%20Cloud%20and%20AWS%20with%20Terraform%20|%20Google%20Cloud%20Skills%20Boost_files/anchor_002.html" role="presentation" name="a-3lwputes6eh3" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox allow-storage-access-by-user-activation" width="304" height="78" frameborder="0"></iframe></div><textarea id="g-recaptcha-response-1" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"></textarea></div><iframe style="display: none;"></iframe></div>
+          <noscript>
+            <div>
+              <div style="width: 302px; height: 422px; position: relative;">
+                <div style="width: 302px; height: 422px; position: absolute;">
+                  <iframe
+                    src="https://www.recaptcha.net/recaptcha/api/fallback?k=6LeOI8IUAAAAAPkHlMAE9NReCD_1WD81iYlBlCnV"
+                    name="ReCAPTCHA"
+                    style="width: 302px; height: 422px; border-style: none; border: 0; overflow: hidden;">
+                  </iframe>
+                </div>
+              </div>
+              <div style="width: 300px; height: 60px; border-style: none;
+                bottom: 12px; left: 25px; margin: 0px; padding: 0px; right: 25px;
+                background: #f9f9f9; border: 1px solid #c1c1c1; border-radius: 3px;">
+                <textarea id="g-recaptcha-response" name="g-recaptcha-response"
+                  class="g-recaptcha-response"
+                  style="width: 250px; height: 40px; border: 1px solid #c1c1c1;
+                  margin: 10px 25px; padding: 0px; resize: none;">
+                </textarea>
+              </div>
+            </div>
+          </noscript>
+
+</div>
+</ql-lab-control-panel></ql-drawer>
+<ql-drawer-content id="lab-instructions" slot="drawer-content">
+<ql-snackbar id="alert-snackbar" aria-live="polite" role="alert"></ql-snackbar>
+<div class="alert alert--fake js-alert">
+<p class="alert__message js-alert-message" role="alert"></p>
+<ql-icon-button class="alert__close js-alert-close" icon="clear"></ql-icon-button>
+<iframe class="l-ie-iframe-fix" tabindex="-1"></iframe>
+</div>
+<div class="lab-content__renderable-instructions js-lab-content">
+<div class="lab-preamble">
+<h1 class="lab-preamble__title">
+Building a VPN Between Google Cloud and AWS with Terraform
+</h1>
+<div class="lab-preamble__details subtitle-headline-1">
+<span>1 hour 30 minutes</span>
+<span>5 Credits</span>
+<div class="lab__rating">
+<a aria-label="Lab Reviews" href="https://www.cloudskillsboost.google/focuses/17869/reviews?parent=catalog"><div class="rateit" data-rateit-readonly="true" data-rateit-value="4.4613"><div class="rateit-reset" style="display: none;"></div><div class="rateit-range" style="width: 80px; height: 16px;"><div class="rateit-selected" style="height: 16px; width: 71.3808px;"></div><div class="rateit-hover" style="height:16px"></div></div></div>
+
+</a></div>
+</div>
+</div>
+<div class="lab-outline-place-holder"></div>
+
+<div class="markdown-lab-instructions js-markdown-instructions" id="markdown-lab-instructions">
+
+<h2 id="step1">GSP854</h2>
+<p><img alt="Google Cloud Skills Boost logo" src="Building%20a%20VPN%20Between%20Google%20Cloud%20and%20AWS%20with%20Terraform%20|%20Google%20Cloud%20Skills%20Boost_files/GMOHykaqmlTHiqEeQXTySaMXYPHeIvaqa2qHEzw6Occ.png"></p>
+<h2 id="step2">Overview</h2>
+<p>This lab will show you how to use <a href="https://www.terraform.io/" target="_blank">Terraform</a>
+ by HashiCorp to create secure, private, site-to-site connections 
+between Google Cloud and Amazon Web Services (AWS) using virtual private
+ networks (VPNs). This is a multi-cloud deployment.</p>
+<p>In this lab, you will deploy virtual machine (VM) instances into 
+custom virtual private cloud (VPC) networks in Google Cloud and AWS. You
+ then deploy supporting infrastructure to construct a VPN connection 
+with two Internet Protocol security (IPsec) tunnels between the Google 
+Cloud and AWS VPC networks. The environment and tunnel deployment 
+usually completes within four minutes. This lab is based off of the <a href="https://cloud.google.com/solutions/automated-network-deployment-overview" target="_blank">Automated Network Deployment</a> tutorial.</p>
+<h3>Deployment Architecture</h3>
+<p>In this lab, you build the following deployment environment:</p>
+<p><img alt="automated-network-deployment-3-architecture.png" src="Building%20a%20VPN%20Between%20Google%20Cloud%20and%20AWS%20with%20Terraform%20|%20Google%20Cloud%20Skills%20Boost_files/0FrmBApTKjWjfvDkudOtBRk9BavqQcjvUnRn5suW3bQ.png"></p>
+<h3>Objectives</h3>
+<p>In this lab, you will:</p>
+<ul>
+<li>Build custom VPC networks with user-specified CIDR blocks in Google Cloud and AWS</li>
+<li>Deploy a VM instance in each VPC network</li>
+<li>Create VPN gateways in each VPC network and related resources for two IPsec tunnels</li>
+</ul>
+<p>While Google Cloud uses routes to support equal-cost multi-path 
+(ECMP) routing, AWS supports VPN gateways with two tunnels, active and 
+standby, for redundancy and availability.</p>
+<h3>Routing</h3>
+<p>The lab configuration uses Cloud Router to demonstrate dynamic 
+routing. Cloud Router exchanges your VPC network route updates with your
+ environment in AWS using Border Gateway Protocol (BGP). Dynamic routing
+ by Cloud Router requires a separate Cloud Router for each IPsec tunnel.
+ Alternatively, you can configure a setup with static routes. Both 
+configurations are covered in the Cloud VPN Interop Guide.</p>
+<h2 id="step3">Setup and Requirements</h2>
+<h4>Before you click the Start Lab button</h4>
+<p>Read these instructions. Labs are timed and you cannot pause them. The timer, which starts when you click <strong>Start Lab</strong>, shows how long Google Cloud resources will be made available to you.</p>
+<p>This hands-on lab lets you do the lab activities yourself in a real 
+cloud environment, not in a simulation or demo environment. It does so 
+by giving you new, temporary credentials that you use to sign in and 
+access Google Cloud for the duration of the lab.</p>
+<h4>What you need</h4>
+<p>To complete this lab, you need:</p>
+<ul>
+<li>Access to a standard internet browser (Chrome browser recommended).</li>
+<li>Time to complete the lab.</li>
+</ul>
+<p><strong>Note:</strong> If you already have your own personal Google Cloud account or project, do not use it for this lab.</p>
+<p><strong>Note:</strong> If you are using a Chrome OS device, open an Incognito window to run this lab.</p>
+<h4>How to start your lab and sign in to the Google Cloud Console</h4>
+<ol>
+<li>
+<p>Click the <strong>Start Lab</strong> button. If you need to pay for the lab, a pop-up opens for you to select your payment method.
+On the left is a panel populated with the temporary credentials that you must use for this lab.</p>
+<p><img alt="Open Google Console" src="Building%20a%20VPN%20Between%20Google%20Cloud%20and%20AWS%20with%20Terraform%20|%20Google%20Cloud%20Skills%20Boost_files/tHp4GI5VSDyTtdqi3qDFtevuY014F88FowadnRgE.png"></p>
+</li>
+<li>
+<p>Copy the username, and then click <strong>Open Google Console</strong>.
+The lab spins up resources, and then opens another tab that shows the <strong>Sign in</strong> page.</p>
+<p><img alt="Sign in" src="Building%20a%20VPN%20Between%20Google%20Cloud%20and%20AWS%20with%20Terraform%20|%20Google%20Cloud%20Skills%20Boost_files/VkUIAFY2xX3zoHgmWqYKccRLwFrR4BfARLd5ojmlbhs.png"></p>
+<p><strong><em>Tip:</em></strong> Open the tabs in separate windows, side-by-side.</p>
+<aside>
+ If you see the <strong>Choose an account</strong> page, click <strong>Use Another Account</strong>.
+<img alt="Choose an account" src="Building%20a%20VPN%20Between%20Google%20Cloud%20and%20AWS%20with%20Terraform%20|%20Google%20Cloud%20Skills%20Boost_files/eQ6xPnPn13GjiJP3RWlHWwiMjhooHxTNvzfg1AL2WPw.png">
+</aside>
+</li>
+<li>
+<p>In the <strong>Sign in</strong> page, paste the username that you copied from the left panel. Then copy and paste the password.</p>
+<p><strong><em>Important:</em></strong> You must use the credentials 
+from the left panel. Do not use your Google Cloud Training credentials. 
+If you have your own Google Cloud account, do not use it for this lab 
+(avoids incurring charges).</p>
+</li>
+<li>
+<p>Click through the subsequent pages:</p>
+<ul>
+<li>Accept the terms and conditions.</li>
+<li>Do not add recovery options or two-factor authentication (because this is a temporary account).</li>
+<li>Do not sign up for free trials.</li>
+</ul>
+</li>
+</ol>
+<p>After a few moments, the Cloud Console opens in this tab.</p>
+<aside>
+<strong>Note:</strong> You can view the menu with a list of Google Cloud Products and Services by clicking the <strong>Navigation menu</strong> at the top-left.
+<img alt="Cloud Console Menu" src="Building%20a%20VPN%20Between%20Google%20Cloud%20and%20AWS%20with%20Terraform%20|%20Google%20Cloud%20Skills%20Boost_files/9vT7xPlxoNPPsK0J8j0ZPFB4HnnpaIJVCDByaBrSHg.png">
+</aside>
+<h3>Activate Cloud Shell</h3>
+<p>Cloud Shell is a virtual machine that is loaded with development 
+tools. It offers a persistent 5GB home directory and runs on the Google 
+Cloud. Cloud Shell provides command-line access to your Google Cloud 
+resources.</p>
+<p>In the Cloud Console, in the top right toolbar, click the <strong>Activate Cloud Shell</strong> button.</p>
+<p><img alt="Cloud Shell icon" src="Building%20a%20VPN%20Between%20Google%20Cloud%20and%20AWS%20with%20Terraform%20|%20Google%20Cloud%20Skills%20Boost_files/vdY5ean9ZGXw5aZMb1agpXhRGozsOadHURcR8thAQ.png"></p>
+<p>Click <strong>Continue</strong>.</p>
+<p><img alt="cloudshell_continue.png" src="Building%20a%20VPN%20Between%20Google%20Cloud%20and%20AWS%20with%20Terraform%20|%20Google%20Cloud%20Skills%20Boost_files/lr3PBRjWIrJMQnE8kCkOnRQQVgJnWSg4UWk16f0sA.png"></p>
+<p>It takes a few moments to provision and connect to the environment. 
+When you are connected, you are already authenticated, and the project 
+is set to your <em>PROJECT_ID</em>. For example:</p>
+<p><img alt="Cloud Shell Terminal" src="Building%20a%20VPN%20Between%20Google%20Cloud%20and%20AWS%20with%20Terraform%20|%20Google%20Cloud%20Skills%20Boost_files/hmMK0W41Txk20bQyuDP9g60vCdBajIS52iI2f4bYk.png"></p>
+<p><code>gcloud</code> is the command-line tool for Google Cloud. It comes pre-installed on Cloud Shell and supports tab-completion.</p>
+<p>You can list the active account name with this command:</p>
+<ql-code-block language="plaintext">
+gcloud auth list
+</ql-code-block>
+<p>(Output)</p>
+<ql-code-block language="plaintext" output="">
+ACTIVE: *
+ACCOUNT: student-01-xxxxxxxxxxxx@qwiklabs.net
+To set the active account, run:
+    $ gcloud config set account `ACCOUNT`
+</ql-code-block>
+<p>You can list the project ID with this command:</p>
+<ql-code-block language="plaintext">
+gcloud config list project
+</ql-code-block>
+<p>(Output)</p>
+<ql-code-block language="plaintext" output="">
+[core]
+project = &lt;project_ID&gt;
+</ql-code-block>
+<p>(Example output)</p>
+<ql-code-block language="plaintext" output="">
+[core]
+project = qwiklabs-gcp-44776a13dea667a6
+</ql-code-block>
+<aside>
+  For full documentation of <code>gcloud</code> see the <a href="https://cloud.google.com/sdk/gcloud" target="_blank">gcloud command-line tool overview</a>.
+</aside>
+<h2 id="step4">Preparing your Google Cloud working environment</h2>
+<p>In this section, you will clone the tutorial code and verify your Google Cloud region and zone.</p>
+<h3>Clone the tutorial code</h3>
+<ol>
+<li>
+<p>In the Google Cloud Console, open a new Cloud Shell window and copy the tutorial code:</p>
+</li>
+</ol>
+<ql-code-block language="plaintext">
+gsutil cp gs://spls/gsp854/autonetdeploy-multicloudvpn2.tar .
+tar -xvf autonetdeploy-multicloudvpn2.tar
+</ql-code-block>
+<ol start="2">
+<li>
+<p>Navigate to the tutorial directory:</p>
+</li>
+</ol>
+<ql-code-block language="plaintext">
+cd autonetdeploy-multicloudvpn
+</ql-code-block>
+<h3>Verify the Google Cloud region and zone</h3>
+<p>Certain cloud resources in this lab, including Compute Engine 
+instances, VPN gateways, and Cloud Router, require you to explicitly 
+declare the intended placement region or zone, or both. For more 
+details, see <a href="https://cloud.google.com/compute/docs/regions-zones/regions-zones" target="_blank">Regions and Zones for Google Cloud</a>.</p>
+<p>This lab requires only a single region for each provider. To optimize
+ the connection between the two clouds, choose regions near each other. 
+The following table lists the values set in the tutorial files <code>terraform/gcp_variables.tf</code> and <code>terraform/aws_variables.tf</code>.</p>
+<table>
+
+<tbody><tr>
+<th>Field name</th>
+<th>Google Cloud values</th>
+<th>AWS values</th>
+</tr>
+
+
+<tr>
+<td>Region Name</td>
+<td><code>us-central1</code></td>
+<td>US East (<code>us-east-1</code>)</td>
+</tr>
+<tr>
+<td>Location</td>
+<td>Council Bluffs, Iowa, North America</td>
+<td>Northern Virginia</td>
+</tr>
+
+</tbody></table>
+<h2 id="step5">Preparing for AWS use</h2>
+<p>In this section, you will verify your AWS region. For details about AWS regions, see <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html" target="_blank">Regions and Availability Zones for AWS</a>.</p>
+<ol>
+<li>
+<p>Sign in to the AWS Management Console (Click the <strong>Open AWS Console</strong> button on the left, and log in with the provided username and password).</p>
+</li>
+<li>
+<p>Navigate to the <strong>EC2 Dashboard</strong> (<strong>Services &gt; Compute &gt; EC2</strong>). Select the <strong>Northern Virginia</strong> region (<code>us-east-1</code>)
+ using the pulldown menu in the top right. In the EC2 Dashboard and the 
+VPC Dashboard, you can review the resources deployed later in the lab.</p>
+</li>
+</ol>
+<h2 id="step6">Creating access credentials</h2>
+<p>In this section, you will create access credentials for Google Cloud 
+and AWS and point your templates at these access credentials.</p>
+<h3>Download Compute Engine default service account credentials</h3>
+<p>In Cloud Shell, which is a Linux environment, <code>gcloud</code> manages credentials files under the <code>~/.config/gcloud</code> directory. To set up your Compute Engine default service account credentials, follow these steps:</p>
+<ol>
+<li>
+<p>In the Google Cloud Console, in the <strong>Navigation Menu</strong> <img alt="Navigation menu" src="Building%20a%20VPN%20Between%20Google%20Cloud%20and%20AWS%20with%20Terraform%20|%20Google%20Cloud%20Skills%20Boost_files/tkgw1TDgj4QYKQUW4jUFd0O5OEKlUMBRYbhlCrF0WY.png" title="Navigation menu">
+, click <strong>IAM &amp; Admin</strong> &gt; <strong>Service Accounts</strong>.</p>
+</li>
+<li>
+<p>Click the <code>Compute Engine default service account</code> , click on three vetical dots under <strong>Actions</strong> and select <strong>Manage keys</strong>, and click <strong>ADD KEY</strong> &gt; <strong>Create new key</strong>.</p>
+</li>
+<li>
+<p>Verify <strong>JSON</strong> is selected as the key type and click <strong>Create</strong>, which downloads your credentials as a file named <code>[PROJECT_ID]-[UNIQUE_ID].json</code>. Click <strong>CLOSE</strong>.</p>
+</li>
+</ol>
+<p>Click <em>Check my progress</em> to verify the objective.
+<ql-activity-tracking step="1">
+Create service key for default service account
+</ql-activity-tracking></p>
+<ol start="4">
+<li>
+<p>In your Cloud Shell terminal, verify you are still in the <code>autonetdeploy-multicloudvpn</code> folder.</p>
+</li>
+<li>
+<p>To upload your downloaded JSON file from your local machine into the Cloud Shell environment, click <strong>More</strong> <img alt="more" src="Building%20a%20VPN%20Between%20Google%20Cloud%20and%20AWS%20with%20Terraform%20|%20Google%20Cloud%20Skills%20Boost_files/2ufrDePg5inKfodUoT2Kib4oE7II7emYnypCC85FjQ.png" title="More"> and click <strong>Upload</strong> then choose your downloaded file and click <strong>Upload</strong>.</p>
+</li>
+<li>
+<p>Navigate to the JSON file you downloaded and click <strong>Open</strong> to upload. The file is placed in the home (<code>~</code>) directory.</p>
+</li>
+<li>
+<p>Use the <code>./gcp_set_credentials.sh</code> script provided to create the <code>~/.config/gcloud/credentials_autonetdeploy.json</code> file. This script also creates <code>terraform/terraform.tfvars</code> with a reference to the new credentials.</p>
+</li>
+</ol>
+<ql-infobox>Replace <code>[PROJECT_ID]-[UNIQUE_ID]</code> with the actual file name of your downloaded JSON key.</ql-infobox>
+<ql-code-block language="plaintext">
+./gcp_set_credentials.sh ~/[PROJECT_ID]-[UNIQUE_ID].json
+</ql-code-block>
+<p>Output (Do not copy):</p>
+<ql-code-block nowrap="" output="" language="awk">
+Created ~/.config/gcloud/credentials_autonetdeploy.json from ~/[PROJECT_ID]-[UNIQUE_ID].json.
+Updated gcp_credentials_file_path in ~/autonetdeploy-startup/terraform/terraform.tfvars.
+</ql-code-block>
+<h3>Create AWS access credentials</h3>
+<p>In this section, you will set up your Qwiklabs-generated AWS access 
+credentials to use with Terraform. Note that the method used in here 
+differs from that of a production or personal environment due to lab 
+constraints. If you would like to see how this is done outside of a lab 
+environment, you can check out the steps <a href="https://cloud.google.com/architecture/automated-network-deployment-overview#download_aws_access_credentials" target="_blank">here</a>.</p>
+<ol>
+<li>
+<p>Run the following commands to create your credentials directory and file:</p>
+</li>
+</ol>
+<ql-code-block language="plaintext">
+export username=`whoami`
+mkdir /home/$username/.aws/
+touch /home/$username/.aws/credentials_autonetdeploy
+</ql-code-block>
+<ol start="2">
+<li>
+<p>Run the following command to edit the credentials file. This is where
+ you will put your Qwiklabs generated AWS Access and Secret keys.</p>
+</li>
+</ol>
+<ql-code-block language="plaintext">
+nano /home/$username/.aws/credentials_autonetdeploy
+</ql-code-block>
+<ol start="3">
+<li>
+<p>On the first line, paste the following:</p>
+</li>
+</ol>
+<ql-code-block language="plaintext">
+[default]
+</ql-code-block>
+<ol start="4">
+<li>
+<p>On the next line, add the following code. Replace <code>&lt;Your AWS Access Key&gt;</code> with your <strong>AWS Access Key</strong> from the Qwiklabs connection details panel.</p>
+</li>
+</ol>
+<ql-code-block language="plaintext">
+aws_access_key_id=&lt;Your AWS Access Key&gt;
+</ql-code-block>
+<ol start="5">
+<li>
+<p>On the next line, add the following code. Replace <code>&lt;Your AWS Secret Key&gt;</code> with your <strong>AWS Secret Key</strong> from the Qwiklabs connection details panel.</p>
+</li>
+</ol>
+<ql-code-block language="plaintext">
+aws_secret_access_key=&lt;Your AWS Secret Key&gt;
+</ql-code-block>
+<ol start="6">
+<li>
+<p>To save the file, use <strong>CTRL+X</strong> to exit, then type <code>Y</code> to save the changes, and hit <strong>Enter</strong>.</p>
+</li>
+<li>
+<p>Run the following to inspect your security credentials file:</p>
+</li>
+</ol>
+<ql-code-block language="plaintext">
+cat /home/$username/.aws/credentials_autonetdeploy
+</ql-code-block>
+<p>Your file should resemble the following:</p>
+<ql-code-block language="plaintext">
+[default]
+aws_access_key_id=AKIA3INBXVI72ZO2Z4F4
+aws_secret_access_key=bvQ+aMscVps34Q5ZZnazUGB2+kneKFr73P33iZIo
+</ql-code-block>
+<ol start="7">
+<li>
+<p>Once your file is correctly formatted, use the following command to 
+set a Terraform environment variable to the correct AWS credentials file
+ path:</p>
+</li>
+</ol>
+<ql-code-block language="plaintext">
+export TF_VAR_aws_credentials_file_path=/home/$username/.aws/credentials_autonetdeploy
+</ql-code-block>
+<ql-infobox>
+<strong>Note:</strong> a different way to do this would be to update the <code>terraform/terraform.tfvars</code> file to reference the AWS credentials file path.
+</ql-infobox>
+<h2 id="step7">Setting your project</h2>
+<p>In this section, you point your deployment templates at your project.
+ Google Cloud offers several ways to designate the Google Cloud project 
+to be used by the automation tools. For simplicity, instead of pulling 
+the Project ID from the environment, the Google Cloud project is 
+explicitly identified by a string variable in the template files.</p>
+<ol>
+<li>
+<p>Set your Google Cloud Project ID by using the following commands:</p>
+</li>
+</ol>
+<ql-code-block language="plaintext">
+export PROJECT_ID=$(gcloud config get-value project)
+gcloud config set project $PROJECT_ID
+</ql-code-block>
+<ol start="2">
+<li>
+<p>Use the provided script to update the project value in your configuration files for Terraform.</p>
+</li>
+</ol>
+<ql-code-block language="plaintext">
+./gcp_set_project.sh
+</ql-code-block>
+<ol start="3">
+<li>
+<p>Review the updated file to verify that your <code>project-id</code> value has been inserted into <code>terraform/terraform.tfvars</code>. You can either use the <code>cat</code> command or the Cloud Shell Editor to verify the file.</p>
+</li>
+<li>
+<p>Run the one-time <code>terraform init</code> command to install the Terraform providers for this deployment.</p>
+</li>
+</ol>
+<ql-code-block language="plaintext">
+cd terraform
+terraform init
+</ql-code-block>
+<ol start="5">
+<li>
+<p>Run the Terraform <code>plan</code> command to verify your credentials.</p>
+</li>
+</ol>
+<ql-code-block language="plaintext">
+terraform plan
+</ql-code-block>
+<p>Output (Do not copy):</p>
+<ql-code-block nowrap="" output="" language="pf">
+Refreshing Terraform state in-memory prior to plan...
+...
+ +google_compute_instance.gcp-vm
+...
+Plan: 34 to add, 0 to change, 0 to destroy.
+</ql-code-block>
+<h2 id="step8">Using SSH keys for connecting to VM instances</h2>
+<p>In Google Cloud, the Cloud Console and <code>gcloud</code> tool work behind the scenes to <a href="https://cloud.google.com/compute/docs/instances/ssh-keys" target="_blank">manage SSH keys</a> for you. Use the <code>ssh</code> command to <a href="https://cloud.google.com/compute/docs/instances/connecting-to-instance" target="_blank">communicate with your Compute Engine</a> instances without generating or uploading any key files.</p>
+<p>However, for your multi-cloud exercises, you do need a public/private
+ key pair to connect with VM instances in Amazon Elastic Compute Cloud 
+(EC2).</p>
+<h3>Generate a key pair</h3>
+<ol>
+<li>
+<p>In Cloud Shell, use <code>ssh-keygen</code> to generate a new key pair:</p>
+</li>
+</ol>
+<ql-code-block language="plaintext">
+ssh-keygen -t rsa -f ~/.ssh/vm-ssh-key -C $username
+</ql-code-block>
+<p>When asked for passphrase, press <strong>Enter</strong> twice to leave it blank.</p>
+<ol start="2">
+<li>
+<p>Restrict access to your private key. This is a best practice.</p>
+</li>
+</ol>
+<ql-code-block language="plaintext">
+chmod 400 ~/.ssh/vm-ssh-key
+</ql-code-block>
+<h3>Import the public key to Google Cloud</h3>
+<p>In this section, you will import and register your key.</p>
+<ol>
+<li>
+<p>In Cloud Shell, register your public key with Google Cloud:</p>
+</li>
+</ol>
+<ql-code-block language="plaintext">
+gcloud compute config-ssh --ssh-key-file=~/.ssh/vm-ssh-key
+</ql-code-block>
+<ql-infobox>You can ignore the warning <code>No host aliases were added...</code> because the command also attempts to update Compute Engine VM instances, but no instances have been created yet.</ql-infobox>
+<ol start="2">
+<li>
+<p>In the Cloud Console, navigate to the <strong>Compute Engine &gt; Metadata</strong> page.</p>
+</li>
+<li>
+<p>Click <strong>SSH Keys</strong>. Verify your SSH Key exists.</p>
+</li>
+<li>
+<p>Under the <strong>Key</strong> Section, copy the SSH Key value. You will use this in the next section.</p>
+</li>
+</ol>
+<p><img alt="ssh-key.png" src="Building%20a%20VPN%20Between%20Google%20Cloud%20and%20AWS%20with%20Terraform%20|%20Google%20Cloud%20Skills%20Boost_files/Yty34QKTxn2HLflwgfpDyxTkwiaPLmwOBjmlhrRQ.png"></p>
+<h3>Import the public key to AWS</h3>
+<p>You can reuse the public key file generated with Google Cloud.</p>
+<ol>
+<li>In the AWS Management Console, navigate to <strong>Services &gt; Compute &gt; EC2</strong>.</li>
+</ol>
+<ql-infobox>
+<strong>Verify</strong> that you are in the <strong>US-East (N. Virginia)</strong> <code>us-east-1</code> region.
+</ql-infobox>
+<ol start="2">
+<li>
+<p>In <strong>EC2 Dashboard</strong>, under the <strong>Network &amp; Security</strong> group on the left, click <strong>Key Pairs</strong>.</p>
+</li>
+<li>
+<p>Click <strong>Actions &gt; Import Key Pair</strong>.</p>
+</li>
+<li>
+<p>For the name, enter: <code>vm-ssh-key</code>.</p>
+</li>
+<li>
+<p>Paste the contents of your Google Cloud public key (<strong>Compute Engine &gt; Metadata &gt; SSH Keys</strong>) into the <strong>Public key contents</strong> box.</p>
+</li>
+<li>
+<p>Verify that the contents are of the expected form: <code>ssh-rsa [KEY_DATA] [USERNAME]</code>.</p>
+</li>
+<li>
+<p>Click <strong>Import Key Pair</strong>.</p>
+</li>
+</ol>
+<p><img alt="import-key-pair.png" src="Building%20a%20VPN%20Between%20Google%20Cloud%20and%20AWS%20with%20Terraform%20|%20Google%20Cloud%20Skills%20Boost_files/GxqeiY8r9VvtcNN1lkHkBfSN9dpyoOSKcpJb82rxd5I.png"></p>
+<p>You can now see the AWS entry for the <code>vm-ssh-key</code> value. You can reference this key in configuration settings, which enables you to use the ssh command for access.</p>
+<p>When you use the <code>ssh</code> command to connect to AWS 
+instances, AWS behaves differently from Google Cloud. For AWS, you must 
+provide a generic username supported by the AMI provider. In this 
+tutorial, the AMI provider expects <code>ubuntu</code> as the user.</p>
+<p>You now have an environment in which you can easily deploy resources 
+to the cloud using automated tools. Use this environment to complete the
+ rest of the lab.</p>
+<h2 id="step9">Examining Terraform configuration files</h2>
+<p>In Terraform, a <a href="https://www.terraform.io/intro/getting-started/build.html" target="_blank">deployment configuration</a> is defined by a directory of files. Although these files can be JSON files, it's better to use the <a href="https://www.terraform.io/docs/configuration/index.html" target="_blank">Terraform configuration</a> file (<code>.tf</code>
+ file) syntax, which is easier to read and maintain. This lab provides a
+ set of files that illustrate one way of cleanly organizing your 
+resources. This set is a functional deployment and requires no edits to 
+run.</p>
+<table>
+
+<tbody><tr>
+<th>Filename</th>
+<th>Purpose</th>
+</tr>
+
+
+<tr>
+<td><code>main.tf</code></td>
+<td>Defines your providers, and specifies which clouds to deploy in this
+ configuration. Also reads your credentials, project name, and selected 
+regions.</td>
+</tr>
+<tr>
+<td>
+<code>gcp_variables.tf</code>, <code>aws_variables.tf</code>
+</td>
+<td>Declares variables used to parameterize and customize the deployment—for example, <code>gcp_region</code> and <code>gcp_instance_type</code>.</td>
+</tr>
+<tr>
+<td>
+<code>gcp_compute.tf</code>, <code>aws_compute.tf</code>
+</td>
+<td>Defines the compute resources used in your deployment—for example, <code>google_compute_instance</code>.</td>
+</tr>
+<tr>
+<td><code>vm_userdata.sh</code></td>
+<td>Specifies the script to run when starting up VM instances. Automatically sets up the <code>iperf3</code> test tool and some wrapper scripts.</td>
+</tr>
+<tr>
+<td>
+<code>gcp_networking.tf</code>, <code>aws_networking.tf</code>
+</td>
+<td>Defines networking resources, including <code>google_compute_network</code>, <code>google_compute_subnetwork</code>, <code>google_compute_address</code>, <code>google_compute_vpn_gateway</code>, and <code>google_compute_vpn_tunnel</code>.</td>
+</tr>
+<tr>
+<td>
+<code>gcp_security.tf</code>, <code>aws_security.tf</code>
+</td>
+<td>Defines resources for allowing test traffic in the GCP or AWS environment, including <code>google_compute_firewall</code> rules and <code>aws_security_group</code> resources.</td>
+</tr>
+<tr>
+<td>
+<code>gcp_outputs.tf</code>, <code>aws_outputs.tf</code>
+</td>
+<td>Defines variables to be output upon completion of the deployment—for example, the <code>external_ip</code> and <code>internal_ip</code> of the deployed VM instance.</td>
+</tr>
+<tr>
+<td><code>terraform.tfstate</code></td>
+<td>[OUTPUT] Specifies the file used by Terraform to store the 
+client-side resource state after checking with the cloud. For more 
+details, see <a href="https://cloud.google.com/community/tutorials/managing-gcp-projects-with-terraform" target="_blank">Managing GCP Projects with Terraform</a>.</td>
+</tr>
+<tr>
+<td><code>run_graph.sh</code></td>
+<td>Shell script for generating a PNG file from Terraform that shows 
+resource dependencies. You can see the output of this script in <code>images/gcpawsvpn_plan_graph.png</code>.</td>
+</tr>
+
+</tbody></table>
+<h2 id="step10">Deploying VPC networks, VM instances, VPN gateways, and IPsec tunnels</h2>
+<p>Constructing connections between multiple clouds is complex. You can 
+deploy many resources in parallel in both environments, but when you are
+ building IPsec tunnels, you need to order interdependencies carefully. 
+For this reason, establishing a stable deployment configuration in code 
+is a helpful way to scale your deployment knowledge. The following 
+figure summarizes the steps required to create this deployment 
+configuration across multiple providers.</p>
+<p><img alt="automated-network-deployment-3-steps.png" src="Building%20a%20VPN%20Between%20Google%20Cloud%20and%20AWS%20with%20Terraform%20|%20Google%20Cloud%20Skills%20Boost_files/D48v3QvnWlMCcqytQ2c3jeRCUvYdk4q68Y8J45BLZIg.png"></p>
+<h2 id="step11">Deploy with Terraform</h2>
+<p>Terraform uses the <code>terraform.tfstate</code> file to capture the resource state. To view the current resource state in a readable form, you can run <code>terraform show</code>.</p>
+<ol>
+<li>
+<p>In Cloud Shell, navigate to the <code>terraform</code> directory:</p>
+</li>
+</ol>
+<ql-code-block language="plaintext">
+cd ~/autonetdeploy-multicloudvpn/terraform
+</ql-code-block>
+<ol start="2">
+<li>
+<p>Use the Terraform validate command to <code>validate</code> the syntax of your configuration files. This validation check is simpler than those performed as part of the <code>plan</code> and <code>apply</code> commands in subsequent steps. The <code>validate</code> command does not authenticate with any providers.</p>
+</li>
+</ol>
+<ql-code-block language="plaintext">
+terraform validate
+</ql-code-block>
+<p>If you don't see an error message, you have completed an initial 
+validation of your file syntax and basic semantics. If you do see an 
+error message, validation failed.</p>
+<ol start="3">
+<li>
+<p>Use the Terraform <code>plan</code> command to review the deployment 
+without instantiating resources in the cloud. The plan command requires 
+successful authentication with all providers specified in the 
+configuration.</p>
+</li>
+</ol>
+<ql-code-block language="plaintext">
+terraform plan
+</ql-code-block>
+<p>The <code>plan</code> command returns an output listing of resources to be added, removed, or updated. The last line of the <code>plan</code> output shows a count of resources to be added, changed, or destroyed:</p>
+<ql-code-block nowrap="" output="" language="pf">
+Refreshing Terraform state in-memory prior to plan...
+...
+Plan: 34 to add, 0 to change, 0 to destroy.
+</ql-code-block>
+<ol start="4">
+<li>
+<p>Use the Terraform <code>apply</code> command to create a deployment:</p>
+</li>
+</ol>
+<ql-code-block language="plaintext">
+terraform apply
+</ql-code-block>
+<p>The <code>apply</code> command creates a deployment with backing resources in the cloud. In around four minutes, <code>apply</code> creates 30+ resources for you, including GCP and AWS <a href="https://www.terraform.io/docs/providers/google/r/compute_network.html" target="_blank">VPC networks</a>, <a href="https://www.terraform.io/docs/providers/google/r/compute_instance.html" target="_blank">VM instances</a>, <a href="https://www.terraform.io/docs/providers/google/r/compute_vpn_gateway.html" target="_blank">VPN gateways</a>, and <a href="https://www.terraform.io/docs/providers/google/r/compute_vpn_tunnel.html" target="_blank">IPsec tunnels</a>. The output of the <code>apply</code> command includes details of the resources deployed and the output variables defined by the configuration.</p>
+<ol start="5">
+<li>Type <code>yes</code> then enter to approve.</li>
+</ol>
+<p>Click <em>Check my progress</em> to verify the objective.
+<ql-activity-tracking step="2">
+Deploy with Terraform
+</ql-activity-tracking></p>
+<ol start="6">
+<li>
+<p>Your deployments can emit output variables to aid your workflow. In 
+this tutorial, the assigned internal and external IP addresses of VM 
+instances have been identified as output variables by the <code>gcp_outputs.tf</code> and <code>aws_outputs.tf</code>
+ files. These addresses are printed automatically when the apply step 
+completes. If, later in your workflow, you want to redisplay the output 
+variable values, use the <code>output</code> command.</p>
+</li>
+</ol>
+<ql-code-block language="plaintext">
+terraform output
+</ql-code-block>
+<p>The output variables defined by this configuration include the 
+internal and external IP addresses for your VM instances. To use the <code>ssh</code> command for network validation, you need the external IP addresses to connect to the VM instances.</p>
+<ql-code-block language="plaintext">
+aws_instance_external_ip = [AWS_EXTERNAL_IP]
+aws_instance_internal_ip = 172.16.0.100
+gcp_instance_external_ip = [GCP_EXTERNAL_IP]
+gcp_instance_internal_ip = 10.240.0.100
+</ql-code-block>
+<ol start="7">
+<li>
+<p>Use the Terraform <code>show</code> command to inspect the deployed resources and verify the current state.</p>
+</li>
+</ol>
+<ql-code-block language="plaintext">
+terraform show
+</ql-code-block>
+<ol start="8">
+<li>
+<p>To review your instances, use <code>gcloud compute instances list</code>, or use the Cloud Console, on the VM instances panel.</p>
+</li>
+</ol>
+<ql-code-block language="plaintext">
+gcloud compute instances list
+</ql-code-block>
+<p>Output (Do not copy):</p>
+<ql-code-block nowrap="" output="" language="apache">
+NAME                ZONE           MACHINE_TYPE  PREEMPTIBLE  INTERNAL_IP    EXTERNAL_IP    STATUS
+gcp-vm-us-central1  us-central1-a  n1-highmem-4               10.240.0.100   [EXTERNAL IP]  RUNNING
+</ql-code-block>
+<ol start="9">
+<li>
+<p>Verify that your Google Cloud VM instance is functioning by using the <code>ssh</code> command to connect to it:</p>
+</li>
+</ol>
+<ql-code-block language="plaintext">
+ssh -i ~/.ssh/vm-ssh-key [GCP_EXTERNAL_IP]
+</ql-code-block>
+<p>You will get a message asking to confirm the authenticity of the host. Type <strong>yes</strong>.</p>
+<ol start="10">
+<li>
+<p>Run the <code>ping</code> and <code>curl</code> commands in your <code>ssh</code> session:</p>
+</li>
+</ol>
+<ql-code-block language="plaintext">
+ping -c 5 google.com
+curl ifconfig.co/ip
+</ql-code-block>
+<ol start="11">
+<li>
+<p>Run simple network performance checks from the Google Cloud VM 
+instance. Use pre-installed scripts to run a test on each network 
+interface, both external and internal.</p>
+</li>
+</ol>
+<ul>
+<li>
+<p>Over external IPs:</p>
+</li>
+</ul>
+<ql-code-block language="plaintext">
+/tmp/run_iperf_to_ext.sh
+</ql-code-block>
+<p>This script runs a 30-second performance test that produces summary data about network performance.</p>
+<p>Resulting output:</p>
+<ql-code-block nowrap="" output="" language="prolog">
+...
+[SUM]   ... sender
+[SUM]   ... receiver
+...
+</ql-code-block>
+<ul>
+<li>
+<p>Over VPN (internal IPs):</p>
+</li>
+</ul>
+<ql-code-block language="plaintext">
+/tmp/run_iperf_to_int.sh
+</ql-code-block>
+<p>This script runs a 30-second performance test that produces summary data about network performance.</p>
+<p>Resulting output:</p>
+<ql-code-block nowrap="" output="" language="prolog">
+...
+[SUM]   ... sender
+[SUM]   ... receiver
+...
+</ql-code-block>
+<ql-warningbox>
+Once the output has been displayed <b>once</b>, please exit iperf.
+</ql-warningbox>
+<ol start="12">
+<li>
+<p>When you complete the checks from the Google Cloud VM instance, enter the following command:</p>
+</li>
+</ol>
+<ql-code-block language="plaintext">
+exit
+</ql-code-block>
+<ol start="13">
+<li>
+<p>To verify that your AWS VM instance is functioning, use the <code>ssh</code> command to connect to it:</p>
+</li>
+</ol>
+<ql-code-block language="plaintext">
+ssh -i ~/.ssh/vm-ssh-key ubuntu@[AWS_EXTERNAL_IP]
+</ql-code-block>
+<p>You will get a message asking to confirm the authenticity of the host. Type <strong>yes</strong>.</p>
+<ol start="14">
+<li>
+<p>Run the <code>ping</code> and <code>curl</code> commands in your <code>ssh</code> session:</p>
+</li>
+</ol>
+<ql-code-block language="plaintext">
+ping -c 5 google.com
+curl ifconfig.co/ip
+</ql-code-block>
+<ol start="15">
+<li>
+<p>Run simple network performance checks from the AWS VM instance. Use 
+pre-installed scripts to run a test on each network interface, both 
+external and internal.</p>
+</li>
+</ol>
+<ul>
+<li>
+<p>Over external IPs:</p>
+</li>
+</ul>
+<ql-code-block language="plaintext">
+/tmp/run_iperf_to_ext.sh
+</ql-code-block>
+<p>This script runs a 30-second performance test that produces summary data about network performance.</p>
+<p>Resulting output:</p>
+<ql-code-block nowrap="" output="" language="prolog">
+...
+[SUM]   ... sender
+[SUM]   ... receiver
+...
+</ql-code-block>
+<ul>
+<li>
+<p>Over VPN (internal IPs):</p>
+</li>
+</ul>
+<ql-code-block language="plaintext">
+/tmp/run_iperf_to_int.sh
+</ql-code-block>
+<p>This script runs a 30-second performance test that produces summary data about network performance.</p>
+<p>Output (Do not copy):</p>
+<ql-code-block nowrap="" output="" language="prolog">
+...
+[SUM]   ... sender
+[SUM]   ... receiver
+...
+</ql-code-block>
+<ql-warningbox>
+Once the output has been displayed <b>once</b>, please exit iperf.
+</ql-warningbox>
+<ol start="16">
+<li>
+<p>When you complete the checks from the AWS VM instance, enter the following command:</p>
+</li>
+</ol>
+<ql-code-block language="plaintext">
+exit
+</ql-code-block>
+<p>You have successfully deployed a secure, private, site-to-site 
+connection between Google Cloud and AWS using VPN! You can optionally 
+destroy your infrastructure using the <code>terraform destroy</code> <a href="https://www.terraform.io/docs/cli/commands/destroy.html" target="_blank">command</a>, explore the resources you created, or end your lab here.</p>
+<h2 id="step12">Congratulations!</h2>
+<p>In this lab, you used Terraform to build custom VPC networks with 
+user-specified CIDR blocks in Google Cloud and AWS, deploy a VM instance
+ in each network, and create VPN gateways in each VPC network and 
+related resources for two IPsec tunnels.</p>
+<h3>Next Steps / Learn More</h3>
+<p>Be sure to check out the following to receive more hands-on practice with Terraform:</p>
+<ul>
+<li><a href="https://learn.hashicorp.com/terraform" target="_blank">Hashicorp Learn</a></li>
+<li><a href="https://console.cloud.google.com/marketplace/product/hashicorp-marketplace-public/hashicorp-for-gcp" target="_blank">Terraform Enterprise on the Google Cloud Marketplace</a></li>
+<li><a href="https://www.terraform.io/community.html" target="_blank">Terraform Community</a></li>
+<li><a href="https://github.com/GoogleCloudPlatform/terraform-google-examples" target="_blank">Terraform Google Examples</a></li>
+</ul>
+<h3>Google Cloud Training &amp; Certification</h3>
+<p>...helps you make the most of Google Cloud technologies. <a href="https://cloud.google.com/training/courses" target="_blank">Our classes</a>
+ include technical skills and best practices to help you get up to speed
+ quickly and continue your learning journey. We offer fundamental to 
+advanced level training, with on-demand, live, and virtual options to 
+suit your busy schedule. <a href="https://cloud.google.com/certification/" target="_blank">Certifications</a> help you validate and prove your skill and expertise in Google Cloud technologies.</p>
+<h4>Manual Last April 28, 2022</h4>
+<h4>Lab Last April 28, 2022</h4>
+<p>Copyright 2022 Google LLC All rights reserved. Google and the Google 
+logo are trademarks of Google LLC. All other company and product names 
+may be trademarks of the respective companies with which they are 
+associated.</p>
+
+</div>
+</div>
+
+
+<div class="lab-content__end-lab-button js-end-lab-button-container hidden">
+<ql-lab-control-button class="js-end-lab-button" running=""></ql-lab-control-button>
+</div>
+<!-- / TODO: Move recommendations into the end lab modal -->
+<div class="lab-content__renderable-instructions">
+<div class="lab-content__recommendation">
+<h4 class="headline-3">
+Ready for more?
+<p>Here's another lab we think you'll like.</p>
+<div class="content-card-grid">
+<ql-activity-card aria-label="Creating a Virtual Machine" name="Creating a Virtual Machine" path="/focuses/3563?parent=catalog" progress="0.0" type="lab"></ql-activity-card>
+
+</div>
+</h4>
+</div>
+
+</div>
+</ql-drawer-content>
+<ql-drawer end="" id="outline-drawer" open="" slot="drawer" width="320" style="width: 320px; visibility: visible;" aria-hidden="false" role="region" mode="side">
+<div aria-label="Lab Table of Contents" role="navigation">
+
+</div>
+<ul class="lab-content__outline js-lab-content-outline">
+<li><a href="#step1" class="">GSP854</a></li><li><a href="#step2" class="">Overview</a></li><li><a href="#step3" class="">Setup and Requirements</a></li><li><a href="#step4" class="is-active" aria-current="step">Preparing your Google Cloud working environment</a></li><li><a href="#step5">Preparing for AWS use</a></li><li><a href="#step6">Creating access credentials</a></li><li><a href="#step7">Setting your project</a></li><li><a href="#step8">Using SSH keys for connecting to VM instances</a></li><li><a href="#step9">Examining Terraform configuration files</a></li><li><a href="#step10">Deploying VPC networks, VM instances, VPN gateways, and IPsec tunnels</a></li><li><a href="#step11">Deploy with Terraform</a></li><li><a href="#step12">Congratulations!</a></li>
+</ul></ql-drawer>
+</ql-drawer-container>
+</ql-drawer-content>
+</ql-drawer-container>
+
+
+
+</div>
+</main>
+
+<span class="hidden" id="flash-sibling-before"></span>
+<ql-snackbar aria-live="polite" role="alert"></ql-snackbar>
+
+
+<div class="modal fade" id="lab-details-modal">
+<div class="modal-container">
+<div class="modal-content mdl-shadow--24dp">
+<div class="modal-body">
+<p class="l-mbm">
+In this lab, you will use Terraform to to create secure, private, 
+site-to-site connections between Google Cloud and Amazon Web Services 
+(AWS) using virtual private networks (VPNs).
+</p>
+<p>
+This lab is included in the quest
+<a href="https://www.cloudskillsboost.google/quests/44">Managing Cloud Infrastructure with Terraform</a>.
+If you complete this lab you'll receive credit for it when you enroll in this quest.
+</p>
+<p class="small-label l-mbs">
+<strong>
+Duration:
+</strong>
+0m setup
+·
+90m access
+·
+90m completion
+</p>
+<p class="small-label l-mbs">
+<strong>AWS Region:</strong>
+[] <strong></strong>
+</p>
+<p class="small-label l-mbs">
+<span><strong>Levels: </strong>intermediate</span>
+</p>
+<p class="small-label">
+<strong>
+Permalink:
+</strong>
+<a href="https://www.cloudskillsboost.google/catalog_lab/3629">https://www.cloudskillsboost.google/catalog_lab/3629</a>
+</p>
+</div>
+<div class="modal-actions">
+<a class="button button--text" data-dismiss="modal">
+Got It
+</a>
+</div>
+
+
+</div>
+</div>
+<iframe class="l-ie-iframe-fix" tabindex="-1" title="modal"></iframe>
+</div>
+<ql-dialog headline="How satisfied are you with this lab?&lt;span aria-hidden=&quot;true&quot;&gt;*&lt;/span&gt;" id="lab-review-dialog" tabindex="-1" aria-hidden="true">
+<form class="simple_form js-lab-review-form" id="new_lab_review" action="/lab_reviews" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓" autocomplete="off"><div aria-labelledby="lab-review-dialog" aria-required="true" aria-valuemax="5" aria-valuemin="0" aria-valuenow="0" class="rateit js-rateit" data-rateit-max="5" data-rateit-min="0" data-rateit-resetable="false" data-rateit-step="1" data-rateit-value="0" id="lab-review-rateit" role="slider" tabindex="0"><div class="rateit-reset" style="display: none;"></div><div class="rateit-range" style="width: 80px; height: 16px;"><div class="rateit-selected" style="height: 16px; width: 0px;"></div><div class="rateit-hover" style="height:16px"></div></div></div>
+<div class="l-mtm">
+
+<div class="control-group hidden lab_review_user_id"><div class="controls"><input class="hidden" autocomplete="off" type="hidden" value="7380084" name="lab_review[user_id]" id="lab_review_user_id"></div></div>
+<div class="control-group hidden lab_review_classroom_id"><div class="controls"><input class="hidden" autocomplete="off" type="hidden" name="lab_review[classroom_id]" id="lab_review_classroom_id"></div></div>
+<div class="control-group hidden lab_review_lab_id"><div class="controls"><input class="hidden" autocomplete="off" type="hidden" value="3629" name="lab_review[lab_id]" id="lab_review_lab_id"></div></div>
+<div class="control-group hidden lab_review_focus_id"><div class="controls"><input class="hidden" autocomplete="off" type="hidden" name="lab_review[focus_id]" id="lab_review_focus_id"></div></div>
+<div class="control-group hidden lab_review_rating"><div class="controls"><input class="hidden js-rating-input" autocomplete="off" type="hidden" name="lab_review[rating]" id="lab_review_rating"></div></div>
+<div class="control-group text optional lab_review_comment"><label class="text optional control-label" for="lab_review_comment">Additional Comments</label><div class="controls"><textarea class="text optional" name="lab_review[comment]" id="lab_review_comment"></textarea></div></div>
+</div>
+</form><ql-button disabled="" id="submit" label="Submit" slot="action" text=""></ql-button>
+</ql-dialog>
+
+<div class="modal fade" id="lab-access-modal">
+<div class="modal-container">
+<div class="modal-content mdl-shadow--24dp">
+<a class="lab-access-modal-close" data-analytics-action="dismissed_lab_payment_modal" data-dismiss="modal">
+<i class="material-icons">close</i>
+</a>
+<form class="js-lab-access-form" action="/focuses/process_lab_access_request?parent=catalog" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓" autocomplete="off">
+<div class="modal-body">
+<div class="lab-access-modal">
+<input type="hidden" name="id" id="id" value="17869" autocomplete="off">
+<input type="hidden" name="user_id" id="user_id" value="7380084" autocomplete="off">
+<input type="hidden" name="launch_with_credits" id="launch_with_credits" value="0" class="js-launch-with-credits-input" autocomplete="off">
+<input type="hidden" name="launch_with_subs" id="launch_with_subs" value="0" class="js-launch-with-subscription-input" autocomplete="off">
+<input type="hidden" name="launch_with_access_code" id="launch_with_access_code" value="0" class="js-launch-with-access-code" autocomplete="off">
+<div class="lab-access-modal__method">
+<p>
+This lab costs
+5 Credits.
+</p>
+<p>
+6954 Credits
+available
+</p>
+<a class="button js-launch-with-credits-button js-lab-access-modal-button" data-analytics-action="clicked_launch_with_credits_button">
+Launch with
+5 Credits
+</a>
+</div>
+<div class="lab-access-modal__method">
+<p>
+Enter Lab Token:
+</p>
+<div class="lab-access-modal__code js-access-code">
+<input type="text" name="uuid_1" id="uuid_1" maxlength="4" placeholder="1234" class="js-access-code-input">
+<input type="text" name="uuid_2" id="uuid_2" maxlength="4" placeholder="1234" class="js-access-code-input">
+<input type="text" name="uuid_3" id="uuid_3" maxlength="4" placeholder="1234" class="js-access-code-input">
+<input type="text" name="uuid_4" id="uuid_4" maxlength="4" placeholder="1234" class="js-access-code-input">
+</div>
+<a class="button js-launch-with-access-code-button js-lab-access-modal-button" data-analytics-action="clicked_launch_with_access_code_button">
+Launch with Token
+</a>
+</div>
+</div>
+<p class="ql-caption l-mtl">
+I hereby consent to the immediate performance of the contract and 
+acknowledge that I will lose my right of withdrawal from the contract 
+once the lab has begun.
+</p>
+</div>
+</form>
+
+
+
+</div>
+</div>
+<iframe class="l-ie-iframe-fix" tabindex="-1" title="modal"></iframe>
+</div>
+<ql-dialog headline="All done? If you end this lab, you will lose all your work. You may not be able to restart the lab if there is a quota limit. Are you sure you want to end this lab?" icon="error_outline" id="js-lab-are-you-sure-dialog" tabindex="-1" aria-hidden="true">
+<ql-button id="js-are-you-sure-button" label="Submit" slot="action" text=""></ql-button>
+</ql-dialog>
+
+
+<script>
+  $( function() {
+    ql.initMaterialInputs();
+    initChosen();
+    initSearch();
+    initTabs();
+    ql.list.init();
+    ql.favoriting.init();
+    ql.header.myAccount.init();
+    initTooltips();
+    ql.autocomplete.init();
+    ql.modals.init();
+    ql.toggleButtons.init();
+    ql.analytics.init();
+    ql.favoriting.init();
+  ql.chat.init();
+  ql.jumpContent.init();
+  ql.labControlPanel.addRecaptchaErrorHandler();
+  initLabContent();
+  ql.labOutline.links.init();
+  initLabReviewModal();
+  initLabReviewTranslations( {"star_amount_1":"1 of 5 stars","star_amount_2":"2 of 5 stars","star_amount_3":"3 of 5 stars","star_amount_4":"4 of 5 stars","star_amount_5":"5 of 5 stars"} )
+  initLabAccessModal();
+  ql.labAssessment.init();
+  ql.labData.init();
+  initLabTranslations( {"are_you_sure":"All done? If you end this lab, you will lose all your work. You may not be able to restart the lab if there is a quota limit. Are you sure you want to end this lab?","in_progress":"*In Progress*","ending":"*Ending*","starting":"*Starting, please wait*","end_concurrent_labs":"Sorry, you can only run one lab at a time. To start this lab, please confirm that you want all of your existing labs to end.","copied":"Copied","no_resource":"Error retrieving resource.","no_support":"No Support","mac_press":"Press ⌘-C to copy","thanks_review":"Thanks for reviewing this lab.","windows_press":"Press Ctrl-C to copy","days":"days"} );
+  ql.labRun.init();
+  ql.navPanel.init();
+  ql.navigation.init();
+  
+  });
+</script>
+
+
+
+
+<div><div class="grecaptcha-badge" data-style="bottomright" style="width: 256px; height: 60px; display: block; transition: right 0.3s ease 0s; position: fixed; bottom: 14px; right: -186px; box-shadow: gray 0px 0px 5px; border-radius: 2px; overflow: hidden;"><div class="grecaptcha-logo"><iframe title="reCAPTCHA" src="Building%20a%20VPN%20Between%20Google%20Cloud%20and%20AWS%20with%20Terraform%20|%20Google%20Cloud%20Skills%20Boost_files/anchor_003.html" role="presentation" name="a-pidc64i0exxq" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox allow-storage-access-by-user-activation" width="256" height="60" frameborder="0"></iframe></div><div class="grecaptcha-error"></div><textarea id="g-recaptcha-response-100000" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;">03AGdBq27-lbyesC3_ei-Yrt34gMeQOX1rkL67bADnnuRKOHMxFyFCwWy5mFFN5hn-YHRvVG-TjvsMdn6f_D98wFI40aiFAhOjU-kOcoyrU5Qvu4EdAM3MA9av8GspvhOp2gC6_C4X9MLOBu8MzMWXoK43Oy13m0nAXceQwWDqsBwPB5V5aIdeHOkxO2ByvpjiLwMJkG2ZKu8YZuV5BQxP9tbQd3d-BRLas2CLTcrfGn7QovoCfZmxb9N20ncWi2aRdhBeP6QXIeaO_MORMBAv8X4KtKzwJIIpeQcUH4u7aHP42ZqPL-OOkZsEuA69xN8eBFGu8kJD03z1WNf83fb9dmhgEptyaNyafSkGYwe1I7cEFNbXSFr6khIkyvbJhiXxBpoj7zt9pQhGVRJDjCrHbZiBwK9Lyk2GnhqmI1ceOjht5ft87igz8r9loGcBja97uWu6ZxUgccxrwSkItVjsoNUFaCFXXytyTHgwoqh11KfWPE8dO9vz4hQUIPVrToF8wfquM5JsFlYTqLNWdYxp5W1pNQXVSW9Aj02P5qEUJL7I55d3vRW_3OYXXbO5Pev2uxiJLXlMyuCyDF95oIQUmTmgSaYYtLb9nz7jjs1quGpiS3_DfXVxsQfOnfyz9C_w851S9DodFKzn-rF2E5HEZtv5-2hWldJwvsowYzt7WJ6xm286cUCLJTTZqnJyh2r7Oxd6NpUoHQLin0hkoMFMyTk5jUuPwL35EomRvfmzon6t17BOvKhSMYbez3ZrLfCVl9uBH-OlQSDW3J9vmYRHr6_Iq4Qgk7OeXq6JFF7X1VP3Uc6LCDPgHPIz5oB6Tm511SB9Yw7UiWMhHA6kTVjv0JvUhumxjf0FNqs8Wn-hG39nhZ1f6XipUV0RnyLCbuFu-uzRDulMKvVsxJBHM-v89uLL0shP8SwiFfW9OLfqv-u02580n4PbptT0xiCHVotg2J_R-p6Bs4kISikdSHlpkDQOGLpnbktCRXk1nimVokR2W-bQ2kmLzI440j1-c1Tcs1tpI3hEPnlvRkM7J-jSi6WTGvLcHGp9Gvfn6htJpL9CPn05CtAPsJfm58JmwypW94MICgd2wqTAj0ROM6ZdD6nodyOCrkxXSFraJHVNq2pmhqnhcavo0AThdVZzUOWvjeWJq44KTozyNG8CoUnr6aUuH8mUrLzPjldJRub3iKxoQnQDwDGj1Mk</textarea></div></div><div style="background-color: rgb(255, 255, 255); border: 1px solid rgb(204, 204, 204); box-shadow: rgba(0, 0, 0, 0.2) 2px 2px 3px; position: absolute; transition: visibility 0s linear 0.3s, opacity 0.3s linear 0s; opacity: 0; visibility: hidden; z-index: 2000000000; left: 0px; top: -10000px;"><div style="width: 100%; height: 100%; position: fixed; top: 0px; left: 0px; z-index: 2000000000; background-color: rgb(255, 255, 255); opacity: 0.05;"></div><div style="border: 11px solid transparent; width: 0px; height: 0px; position: absolute; pointer-events: none; margin-top: -11px; z-index: 2000000000;" class="g-recaptcha-bubble-arrow"></div><div style="border: 10px solid transparent; width: 0px; height: 0px; position: absolute; pointer-events: none; margin-top: -10px; z-index: 2000000000;" class="g-recaptcha-bubble-arrow"></div><div style="z-index: 2000000000; position: relative;"><iframe title="recaptcha challenge expires in two minutes" src="Building%20a%20VPN%20Between%20Google%20Cloud%20and%20AWS%20with%20Terraform%20|%20Google%20Cloud%20Skills%20Boost_files/bframe.html" style="width: 100%; height: 100%;" name="c-3lwputes6eh3" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox allow-storage-access-by-user-activation" frameborder="0"></iframe></div></div><iframe data-product="web_widget" title="No content" tabindex="-1" aria-hidden="true" style="width: 0px; height: 0px; border: 0px none; position: absolute; top: -9999px;" src="Building%20a%20VPN%20Between%20Google%20Cloud%20and%20AWS%20with%20Terraform%20|%20Google%20Cloud%20Skills%20Boost_files/a.html"></iframe><div><iframe title="Opens a widget where you can chat to one of our agents" id="launcher" tabindex="-1" style="width: 110px; height: 50px; padding: 0px; margin: 10px 20px; position: fixed; bottom: 30px; overflow: visible; opacity: 0; border: 0px none; z-index: 999998; transition-duration: 250ms; transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1); transition-property: opacity, top, bottom; top: -9999px; visibility: hidden;"></iframe></div></body></html>
