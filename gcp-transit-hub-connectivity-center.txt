@@ -1,0 +1,6 @@
+#    Create a hub VPC called vpc-transit.
+   # Create two remote branch office VPCs namely vpc-a and vpc-b.
+  #  Create HA VPN from vpa-a to vpc-transit, and vpc-b to vpc-transit.
+   # Create a NCC hub resource and attach the HA VPNs as spokes.
+   # Test the setup end to end deploying VMs in the remote branch office VPCs.
+   
