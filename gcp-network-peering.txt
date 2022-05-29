@@ -17,3 +17,6 @@ gcloud compute firewall-rules create network-b-fw --network network-b --allow tc
 # List routes in project
 gcloud compute routes list --project <FIRST_PROJECT_ID>
     
+# Create VM
+gcloud compute instances create privatenet-us-vm --zone=us-central1-f --machine-type=n1-standard-1 --subnet=privatesubnet-us
+gcloud compute instances list --sort-by=ZONE
