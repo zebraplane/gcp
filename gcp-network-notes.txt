@@ -1,0 +1,160 @@
+Public IP range for private use. https://cloud.google.com/vpc/docs/subnets#valid-ranges
+Private serves acces https://cloud.google.com/vpc/docs/configure-private-service-connect-apis#terraform
+Proxy only subnet : https://cloud.google.com/load-balancing/docs/proxy-only-subnets
+
+VPC peering will not advertise public IP in private use !!
+VPC peering tags and SA are not visible across peering
+For GKE to be reachable must use IP aliases
+
+Cross-region & VPN & VPC peering : https://cloud.google.com/vpc/docs/vpc-peering
+Regional mode - no cross-region traffic to VPN
+HUB Cloud Router has custom routes for spoke VPC's
+Export custom router, spoke import custom routes
+
+============================
+TFE use core only:
+- Attach to billing (org to fm domains)
+- network setup per project (SA connector ? needs network permissions ? )
+
+Access:
+1) Provision application project and attach to billing - ACPT connects to prod billing, require permissions granted in FM domain.
+        manual one time setup, can't support for ENV TFE accounts
+2) Provision per project SA subnet ? Does it need permissions on shared VPC network ?  
+         Add enable SA as project property and manage by ENV TFE SA. Not bey App. SA .
+3) Control provisioning - link front IP to backend - TFE module - app. team can't change.
+
+Network:
+--------
+Solve only for CloudRun -> NEG -> HTTPS iLB + internal network only -> Single pattern
+      Ensure FW rules or equivalent
+Solve for Cloud SQL private IP only 
+Solve Cloud Function -> Serverless access ( same as cloud run)
+https://cloud.google.com/load-balancing/docs/backend-service
+         Setup 2 paired VPC, cloud run, iLB - access vm -> cloud run, cloud-run-> vm
+         
+======================Cloud SQL - Private IP===============================
+https://cloud.google.com/sql/docs/mysql/configure-private-ip#:~:text=Configuring%20private%20IP%20for%20a%20new%20instance%201,6%20Click%20Set%20up%20connection.%20More%20items...%20
+
+Create your Cloud SQL instance, using the --network parameter to specify the name of your chosen VPC network, 
+and the --no-assign-ip flag to disable public IP. 
+On-prem to SQL possible only in VPC with VPN/Direct connect VLAN attachement!!
+Require custom routes export (like peered VPC)
+Can modify connect and allocate new subnet, old subnet not released till all SQL instances removed
+Network name : projects/HOST_PROJECT/global/networks/NETWORK_NAME.
+
+Non-RFC 1918 address ranges  Must be authorized in SQL !
+gcloud sql instances patch INSTANCE_NAME --authorized-networks=192.88.99.0/24,11.0.0.0/24
+Network peering (to SQL) must be updated for these 
+gcloud compute networks peerings update PEERING_CONNECTION --network=NETWORK --export-subnet-routes-with-public-ip --project=PROJECT_ID
+
+
+Named IP range - only at create !!!
+gcloud beta sql instances create INSTANCE_ID --project=PROJECT_ID \
+--network=projects/PROJECT_ID/global/networks/VPC_NETWORK_NAME  --no-assign-ip \
+--allocated-ip-range-name=RANGE_NAME
+---------------- Setup private services access for Cloud SQL -------
+gcloud compute addresses create google-managed-services-VPC_NETWORK_NAME --global --purpose=VPC_PEERING \
+--addresses=192.168.0.0 --prefix-length=16 --network=projects/PROJECT_ID/global/networks/VPC_NETWORK_NAME
+
+gcloud services vpc-peerings connect --service=servicenetworking.googleapis.com --ranges=google-managed-services-VPC_NETWORK_NAME \
+--network=VPC_NETWORK_NAME --project=PROJECT_ID
+
+gcloud services vpc-peerings operations describe --name=OPERATION_ID
+
+----- Move SQL to different network ---
+gcloud beta sql instances patch INSTANCE_ID --project=PROJECT_ID \
+--network=projects/PROJECT_ID/global/networks/TEMPORARY_VPC_NETWORK_NAME --no-assign-ip
+
+------- SQL mTLS ---- https://cloud.google.com/sql/docs/postgres/configure-ssl-instance
+gcloud sql instances patch INSTANCE_NAME --require-ssl
+gcloud beta sql ssl server-ca-certs list --instance=INSTANCE_NAME
+gcloud beta sql ssl server-ca-certs create --instance=INSTANCE_NAME
+# Download server cert
+gcloud beta sql ssl server-ca-certs list --format="value(cert)" --instance=INSTANCE_NAME > FILE_PATH/FILE_NAME.pem
+### Create client SQL cert (up to 10 per instance)
+gcloud sql ssl client-certs create CERT_NAME client-key.pem --instance=INSTANCE_NAME
+# Get public key
+gcloud sql ssl client-certs describe CERT_NAME --instance=INSTANCE_NAME --format="value(cert)" > client-cert.pem
+# Get server cert
+gcloud sql instances describe INSTANCE_NAME --format="value(serverCaCert.cert)" > server-ca.pem
+## Connection example
+psql "sslmode=verify-ca sslrootcert=server-ca.pem sslcert=client-cert.pem sslkey=client-key.pem hostaddr=INSTANCE_IP  user=postgres dbname=DB_NAME"
+
+========= Cloud RUN =====
+-- connect to VPC network --- https://cloud.google.com/run/docs/configuring/connecting-vpc#configuring
+# Implicit firewall rule allow connector access to all VPC with priority 1000
+#Alternative
+## Disable all 
+gcloud compute firewall-rules create RULE_NAME --action=DENY --source-tags=VPC_CONNECTOR_NETWORK_TAG \
+--direction=INGRESS --network=VPC_NETWORK --priority=PRIORITY
+## TAG for single connector vpc-connector-REGION-CONNECTOR_NAME. or ALL connectors - vpc-connector
+## Enable what needs
+gcloud compute firewall-rules create RULE_NAME --allow=PROTOCOLS --source-tags=VPC_CONNECTOR_NETWORK_TAG \
+--direction=INGRESS --network=VPC_NETWORK --target-tags=RESOURCE_TAG --priority=PRIORITY
+#--- Same restrict access using egress connector rules 
+gcloud compute firewall-rules create RULE_NAME --action=DENY --direction=EGRESS \
+--target-tags=VPC_CONNECTOR_NETWORK_TAG --network=VPC_NETWORK --priority=PRIORITY
+
+gcloud compute firewall-rules create RULE_NAME --allow=PROTOCOLS --destination-ranges=RESOURCE_CIDR_RANGE \
+--direction=EGRESS --network=VPC_NETWORK --target-tags=VPC_CONNECTOR_NETWORK_TAG --priority=PRIORITY
+
+-------- Configure Cloud RUn to send only local or ALL traffic to connector
+gcloud run deploy SERVICE --image IMAGE_URL --vpc-connector CONNECTOR_NAME --vpc-egress EGRESS_SETTING
+
+EGRESS_SETTING with an egress setting value:
+    all-traffic: Sends all outbound traffic through the connector.
+    private-ranges-only: Sends only traffic to internal addresses through the VPC connector.
+
+# View 
+gcloud run services describe SERVICE
+============================================
+======= Serverless Access connector setup ====
+gcloud compute networks subnets create SUBNET_NAME --range=RANGE --network=NETWORK_NAME --region=REGION
+gcloud compute networks vpc-access connectors create CONNECTOR_NAME --region=REGION --subnet-project=PROJECT_ID  --subnet=SUBNET_NAME
+--- SETUP NAT
+gcloud compute routers create ROUTER_NAME --network=NETWORK_NAME --region=REGION
+gcloud compute addresses create ORIGIN_IP_NAME --region=REGION
+gcloud compute routers nats create NAT_NAME --router=ROUTER_NAME --region=REGION --nat-custom-subnet-ip-ranges=SUBNET_NAME --nat-external-ip-pool=ORIGIN_IP_NAME
+gcloud run deploy SERVICE_NAME --image=IMAGE_URL--vpc-connector=CONNECTOR_NAME --vpc-egress=all-traffic
+
+#### Private access to Cloud RUN @#####. https://cloud.google.com/run/docs/securing/private-networking
+1) Enable Private Google Access https://cloud.google.com/vpc/docs/private-google-access
+2) Expose CLoudRun to internal access - Private Services Connect - https://cloud.google.com/vpc/docs/configure-private-service-connect-apis
+3) Use pre-GA HTTP ILB - https://cloud.google.com/load-balancing/docs/l7-internal/setting-up-l7-internal-serverless
+
+=================== Cloud RUN + HTTP LB ========== https://cloud.google.com/load-balancing/docs/l7-internal/setting-up-l7-internal-serverless
+gcloud run deploy CLOUD_RUN_SERVICE_NAME --platform=managed --allow-unauthenticated --ingress=internal --region=REGION --image=IMAGE_URL
+gcloud compute networks create lb-network --subnet-mode=custom
+gcloud compute networks subnets create lb-subnet --network=lb-network --range=10.1.2.0/24 --region=REGION
+# One VM required in VPC to setup NEG
+gcloud compute instances create test-vm --network=lb-network --subnet=lb-subnet --zone=ZONE
+# Proxy only subnet
+gcloud compute networks subnets create proxy-only-subnet --purpose=REGIONAL_MANAGED_PROXY --role=ACTIVE --region=REGION --network=lb-network --range=10.129.0.0/23
+# Create NEG for Cloud RUn
+gcloud compute network-endpoint-groups create SERVERLESS_NEG_NAME --region=REGION --network-endpoint-type=serverless --cloud-run-service=CLOUD_RUN_SERVICE_NAME
+# Regional backend services
+gcloud compute backend-services create BACKEND_SERVICE_NAME --load-balancing-scheme=INTERNAL_MANAGED --protocol=HTTPS --region=REGION
+# Add NEG to backend
+gcloud compute backend-services add-backend BACKEND_SERVICE_NAME --region=REGION --network-endpoint-group=SERVERLESS_NEG_NAME --network-endpoint-group-region=REGION
+# Create URL Map
+gcloud compute url-maps create URL_MAP_NAME --default-service=BACKEND_SERVICE_NAME --region=REGION
+# Create SSL Cert
+gcloud compute ssl-certificates create SSL_CERTIFICATE_NAME --certificate CRT_FILE_PATH --private-key KEY_FILE_PATH --region=REGION
+# Regional target proxy
+gcloud compute target-https-proxies create TARGET_HTTPS_PROXY_NAME --ssl-certificates=SSL_CERTIFICATE_NAME --url-map=URL_MAP_NAME --region=REGION
+# Forwarding rule
+gcloud compute forwarding-rules create HTTPS_FORWARDING_RULE_NAME --load-balancing-scheme=INTERNAL_MANAGED --network=lb-network --subnet=lb-subnet \
+  --address=10.1.2.99 --target-https-proxy=TARGET_HTTPS_PROXY_NAME --target-https-proxy-region=REGION --region=REGION --ports=443
+##### LB test @@@@
+gcloud compute instances create vm-client --image-family=debian-10 --image-project=debian-cloud --tags=allow-ssh --network=lb-network --subnet=lb-subnet --zone=ZONE
+# Allow SSH
+gcloud compute firewall-rules create fw-allow-ssh --network=lb-network --action=allow --direction=ingress --target-tags=allow-ssh --rules=tcp:22
+# Connect to instance
+gcloud compute ssh vm-client  --zone=ZONE
+# TEst Cloud Run
+curl -k -s 'https://test.example.com:443' --connect-to test.example.com:443:10.1.2.99:443
+###########################################
+
+
+
+
