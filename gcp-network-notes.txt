@@ -2,6 +2,7 @@ Public IP range for private use. https://cloud.google.com/vpc/docs/subnets#valid
 Private serves acces https://cloud.google.com/vpc/docs/configure-private-service-connect-apis#terraform
 Proxy only subnet : https://cloud.google.com/load-balancing/docs/proxy-only-subnets
 
+------------ VPC Peering ------------------
 VPC peering will not advertise public IP in private use !!
 VPC peering tags and SA are not visible across peering
 For GKE to be reachable must use IP aliases
@@ -11,7 +12,7 @@ Regional mode - no cross-region traffic to VPN
 HUB Cloud Router has custom routes for spoke VPC's
 Export custom router, spoke import custom routes
 
-============================
+============================ TFE notes ==========
 TFE use core only:
 - Attach to billing (org to fm domains)
 - network setup per project (SA connector ? needs network permissions ? )
@@ -32,7 +33,8 @@ Solve Cloud Function -> Serverless access ( same as cloud run)
 https://cloud.google.com/load-balancing/docs/backend-service
          Setup 2 paired VPC, cloud run, iLB - access vm -> cloud run, cloud-run-> vm
          
-======================Cloud SQL - Private IP===============================
+         
+======================   Cloud SQL - Private IP   ===============================
 https://cloud.google.com/sql/docs/mysql/configure-private-ip#:~:text=Configuring%20private%20IP%20for%20a%20new%20instance%201,6%20Click%20Set%20up%20connection.%20More%20items...%20
 
 Create your Cloud SQL instance, using the --network parameter to specify the name of your chosen VPC network, 
@@ -52,7 +54,9 @@ Named IP range - only at create !!!
 gcloud beta sql instances create INSTANCE_ID --project=PROJECT_ID \
 --network=projects/PROJECT_ID/global/networks/VPC_NETWORK_NAME  --no-assign-ip \
 --allocated-ip-range-name=RANGE_NAME
----------------- Setup private services access for Cloud SQL -------
+
+
+====================== CLOUD SQL - Setup private services access for Cloud SQL -------
 gcloud compute addresses create google-managed-services-VPC_NETWORK_NAME --global --purpose=VPC_PEERING \
 --addresses=192.168.0.0 --prefix-length=16 --network=projects/PROJECT_ID/global/networks/VPC_NETWORK_NAME
 
@@ -65,7 +69,8 @@ gcloud services vpc-peerings operations describe --name=OPERATION_ID
 gcloud beta sql instances patch INSTANCE_ID --project=PROJECT_ID \
 --network=projects/PROJECT_ID/global/networks/TEMPORARY_VPC_NETWORK_NAME --no-assign-ip
 
-------- SQL mTLS ---- https://cloud.google.com/sql/docs/postgres/configure-ssl-instance
+
+===========  Cloud  SQL mTLS ---- https://cloud.google.com/sql/docs/postgres/configure-ssl-instance
 gcloud sql instances patch INSTANCE_NAME --require-ssl
 gcloud beta sql ssl server-ca-certs list --instance=INSTANCE_NAME
 gcloud beta sql ssl server-ca-certs create --instance=INSTANCE_NAME
@@ -79,6 +84,7 @@ gcloud sql ssl client-certs describe CERT_NAME --instance=INSTANCE_NAME --format
 gcloud sql instances describe INSTANCE_NAME --format="value(serverCaCert.cert)" > server-ca.pem
 ## Connection example
 psql "sslmode=verify-ca sslrootcert=server-ca.pem sslcert=client-cert.pem sslkey=client-key.pem hostaddr=INSTANCE_IP  user=postgres dbname=DB_NAME"
+
 
 ========= Cloud RUN =====
 -- connect to VPC network --- https://cloud.google.com/run/docs/configuring/connecting-vpc#configuring
@@ -117,10 +123,12 @@ gcloud compute addresses create ORIGIN_IP_NAME --region=REGION
 gcloud compute routers nats create NAT_NAME --router=ROUTER_NAME --region=REGION --nat-custom-subnet-ip-ranges=SUBNET_NAME --nat-external-ip-pool=ORIGIN_IP_NAME
 gcloud run deploy SERVICE_NAME --image=IMAGE_URL--vpc-connector=CONNECTOR_NAME --vpc-egress=all-traffic
 
+
 #### Private access to Cloud RUN @#####. https://cloud.google.com/run/docs/securing/private-networking
 1) Enable Private Google Access https://cloud.google.com/vpc/docs/private-google-access
 2) Expose CLoudRun to internal access - Private Services Connect - https://cloud.google.com/vpc/docs/configure-private-service-connect-apis
 3) Use pre-GA HTTP ILB - https://cloud.google.com/load-balancing/docs/l7-internal/setting-up-l7-internal-serverless
+
 
 =================== Cloud RUN + HTTP LB ========== https://cloud.google.com/load-balancing/docs/l7-internal/setting-up-l7-internal-serverless
 gcloud run deploy CLOUD_RUN_SERVICE_NAME --platform=managed --allow-unauthenticated --ingress=internal --region=REGION --image=IMAGE_URL
@@ -154,6 +162,16 @@ gcloud compute ssh vm-client  --zone=ZONE
 # TEst Cloud Run
 curl -k -s 'https://test.example.com:443' --connect-to test.example.com:443:10.1.2.99:443
 ###########################################
+
+============ Private Services Connect ==============
+https://cloud.google.com/vpc/docs/private-service-connect
+1) endpoint based on forwarding rule
+2) endpoint based on global(external) Load balancer
+3) Endpoint to access google services
+4) Endpoint to access google services using HTTP internal LB (logging/mtls/service rename)
+
+Access API from on-prem (in HUB network) via PSC - https://cloud.google.com/vpc/docs/configure-private-service-connect-apis#on-premises
+
 
 
 
