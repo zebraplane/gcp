@@ -1,0 +1,222 @@
+# Valid subnet ranges https://cloud.google.com/vpc/docs/subnets#valid-ranges
+
+# ================Setup shared VPC
+#https://cloud.google.com/vpc/docs/provisioning-shared-vpc#gcloud_1
+# Enable project as shared vpc (1st permissions at org level, 2nd permission at folder level)
+gcloud compute shared-vpc enable HOST_PROJECT_ID
+gcloud beta compute shared-vpc enable HOST_PROJECT_ID
+# -- verify
+gcloud compute shared-vpc organizations list-host-projects ORG_ID
+## Attach service project
+gcloud compute shared-vpc associated-projects add SERVICE_PROJECT_ID \
+    --host-project HOST_PROJECT_ID
+# or
+gcloud beta compute shared-vpc associated-projects add SERVICE_PROJECT_ID \
+    --host-project HOST_PROJECT_ID
+## Confirm
+gcloud compute shared-vpc get-host-project SERVICE_PROJECT_ID
+gcloud compute shared-vpc list-associated-resources HOST_PROJECT_ID
+
+# Setup Service project admin for SOME subnets in host project
+# Get current policy
+gcloud beta compute networks subnets get-iam-policy SUBNET_NAME \
+    --region SUBNET_REGION \
+    --project HOST_PROJECT_ID \
+    --format json
+
+## Add to generated json use user: group: serviceAccount: or domain:
+{
+  "bindings": [
+  {
+     "members": [
+           "user:[SERVICE_PROJECT_ADMIN]",
+           "user:[SERVICE_PROJECT_ADMIN]"
+        ],
+        "role": "roles/compute.networkUser"
+  }
+  ],
+  "etag": "[ETAG_STRING]"
+}
+## Apply policy
+gcloud beta compute networks subnets set-iam-policy SUBNET_NAME subnet-policy.json \
+    --region SUBNET_REGION \
+    --project HOST_PROJECT_ID
+
+### --- IN SERVICE PROJECT (using service project admin)
+gcloud compute networks subnets list-usable --project HOST_PROJECT_ID
+# reserve IP
+gcloud compute addresses create IP_ADDR_NAME \
+--project SERVICE_PROJECT_ID \
+--subnet projects/HOST_PROJECT_ID/regions/REGION/subnetworks/SUBNET \
+--region=REGION
+
+# Create VM
+gcloud compute instances create INSTANCE_NAME \
+--project SERVICE_PROJECT_ID
+--subnet projects/HOST_PROJECT_ID/regions/REGION/subnetworks/SUBNET \
+--zone ZONE
+
+# Create iLB
+gcloud compute forwarding-rules create FR_NAME \
+    --project SERVICE_PROJECT_ID \
+    --load-balancing-scheme internal \
+    --region REGION \
+    --ip-protocol IP_PROTOCOL \
+    --ports PORT,PORT,... \
+    --backend-service BACKEND_SERVICE_NAME \
+    --subnet projects/HOST_PROJECT_ID/regions/REGION/subnetworks/SUBNET \
+    --address INTERNAL_IP
+
+
+
+
+#---   ======Create Serverless Access Connector
+# https://cloud.google.com/run/docs/configuring/connecting-vpc#gcloud_1
+
+gcloud components update
+gcloud services enable vpcaccess.googleapis.com
+#-- shared VPC - own subnet
+gcloud compute networks subnets describe SUBNET_NAME
+# Must be "private" subnet
+
+# us-central1, subnet /28
+# f1-micro, e2-micro, or e2-standard-4
+# min 2-9 and max 3-10
+gcloud compute networks vpc-access connectors create CONNECTOR_NAME \
+--region REGION \
+--subnet SUBNET \
+# If you are not using Shared VPC, omit the following line.
+--subnet-project HOST_PROJECT_ID \
+# Optional: specify minimum and maximum instance values between 2 and 10, default is 2 min, 10 max.
+--min-instances MIN \
+--max-instances MAX \
+# Optional: specify machine type, default is e2-micro
+--machine-type MACHINE_TYPE
+
+# Verify connector 
+gcloud compute networks vpc-access connectors describe CONNECTOR_NAME --region REGION
+
+# Configure cloud run to use SA
+# docker.pkg.dev/cloudrun/container/hello:latest
+gcloud run deploy SERVICE --image IMAGE_URL --vpc-egress  all-traffic --vpc-connector CONNECTOR_NAME
+
+gcloud run services describe SERVICE
+
+#---- Restrict access from SA to VPC
+gcloud compute firewall-rules create RULE_NAME \
+--action=DENY \
+--source-tags=vpc-connector-REGION-CONNECTOR_NAME \
+--direction=INGRESS \
+--network=VPC_NETWORK \
+--priority=990
+
+# --- Allow traffic to resource
+gcloud compute firewall-rules create RULE_NAME \
+--allow=PROTOCOLS \
+--source-tags=vpc-connector-REGION-CONNECTOR_NAME \
+--direction=INGRESS \
+--network=VPC_NETWORK \
+--target-tags=RESOURCE_TAG \
+--priority=980
+#---- alternative rules based on EGRESS (not ingress)
+gcloud compute firewall-rules create RULE_NAME \
+--action=DENY \
+--direction=EGRESS \
+--target-tags=VPC_CONNECTOR_NETWORK_TAG \
+--network=VPC_NETWORK \
+--priority=990
+
+gcloud compute firewall-rules create RULE_NAME \
+--allow=PROTOCOLS \
+--destination-ranges=RESOURCE_CIDR_RANGE \
+--direction=EGRESS \
+--network=VPC_NETWORK \
+--target-tags=VPC_CONNECTOR_NETWORK_TAG \
+--priority=980
+
+#============== LB + Cloud RUN ========
+gcloud run deploy CLOUD_RUN_SERVICE_NAME \
+  --platform=managed \
+  --allow-unauthenticated \
+  --ingress=internal \
+  --region=REGION \
+  --image=IMAGE_URL
+
+gcloud compute networks create lb-network --subnet-mode=custom
+gcloud compute networks subnets create lb-subnet \
+--network=lb-network \
+--range=10.1.2.0/24 \
+--region=REGION
+
+gcloud compute instances create test-vm \
+--network=lb-network \
+--subnet=lb-subnet \
+--zone=ZONE
+
+## Create proxy only subnet
+gcloud compute networks subnets create proxy-only-subnet \
+--purpose=REGIONAL_MANAGED_PROXY \
+--role=ACTIVE \
+--region=REGION \
+--network=lb-network \
+--range=10.129.0.0/23
+
+## Create LB 
+gcloud compute network-endpoint-groups create SERVERLESS_NEG_NAME \
+    --region=REGION \
+    --network-endpoint-type=serverless  \
+    --cloud-run-service=CLOUD_RUN_SERVICE_NAME
+gcloud compute backend-services create BACKEND_SERVICE_NAME \
+    --load-balancing-scheme=INTERNAL_MANAGED \
+    --protocol=HTTP \
+    --region=REGION
+gcloud compute backend-services add-backend BACKEND_SERVICE_NAME \
+    --region=REGION \
+    --network-endpoint-group=SERVERLESS_NEG_NAME \
+    --network-endpoint-group-region=REGION
+gcloud compute url-maps create URL_MAP_NAME \
+    --default-service=BACKEND_SERVICE_NAME \
+    --region=REGION
+gcloud compute ssl-certificates create SSL_CERTIFICATE_NAME \
+    --certificate CRT_FILE_PATH \
+    --private-key KEY_FILE_PATH \
+    --region=REGION
+gcloud compute target-https-proxies create TARGET_HTTPS_PROXY_NAME \
+    --ssl-certificates=SSL_CERTIFICATE_NAME \
+    --url-map=URL_MAP_NAME \
+    --region=REGION
+gcloud compute forwarding-rules create HTTPS_FORWARDING_RULE_NAME \
+    --load-balancing-scheme=INTERNAL_MANAGED \
+    --network=lb-network \
+    --subnet=lb-subnet \
+    --address=10.1.2.99 \
+    --target-https-proxy=TARGET_HTTPS_PROXY_NAME \
+    --target-https-proxy-region=REGION \
+    --region=REGION \
+    --ports=443
+# Test
+gcloud compute instances create vm-client \
+    --image-family=debian-10 \
+    --image-project=debian-cloud \
+    --tags=allow-ssh \
+    --network=lb-network \
+    --subnet=lb-subnet \
+    --zone=ZONE
+gcloud compute firewall-rules create fw-allow-ssh \
+    --network=lb-network \
+    --action=allow \
+    --direction=ingress \
+    --target-tags=allow-ssh \
+    --rules=tcp:22
+gcloud compute ssh vm-client \
+  --zone=ZONE
+curl -k -s 'https://test.example.com:443' --connect-to test.example.com:443:10.1.2.99:443
+
+
+
+
+
+
+
+
+
