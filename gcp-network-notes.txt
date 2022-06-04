@@ -2,6 +2,21 @@ Public IP range for private use. https://cloud.google.com/vpc/docs/subnets#valid
 Private serves acces https://cloud.google.com/vpc/docs/configure-private-service-connect-apis#terraform
 Proxy only subnet : https://cloud.google.com/load-balancing/docs/proxy-only-subnets
 
+## Questions
+# SA in Service or Host project
+# SQL Auth proxy
+# iLB to Cloud RUn - need HTTP LB & Proxy ?  Is it possible to direct iLB to someone else CloudRUN ? Backed services per service project
+# Serverless in host or services
+Host - less cost, less IP space better resource usage
+Service - cost tracking (to project), secruity
+
+##  HTTP iLB
+1) FW rule + Proxy Target must in the same project
+2) backend service + backend instances/NEG must in the same project
+3) cross-project target to backend service (URL map) require permissions on target project https://cloud.google.com/load-balancing/docs/l7-internal#cross-project
+TCP LB - no proxy, client IP visible to backend VM's
+HTTPS LB required for CloudRun, GCP IP through LB
+
 ------------ VPC Peering ------------------
 VPC peering will not advertise public IP in private use !!
 VPC peering tags and SA are not visible across peering
@@ -163,6 +178,15 @@ gcloud compute ssh vm-client  --zone=ZONE
 curl -k -s 'https://test.example.com:443' --connect-to test.example.com:443:10.1.2.99:443
 ###########################################
 
+######### TCP/IP iLB ######
+# No proxy
+# source IP = client
+# destination IP = FW rule IP 
+# response path direct from backend VM to client
+# backend can be Managed/Unmanaged instance group or NEG with type GCE_VM_IP
+# Multiply forwarding rules with different port !!
+
+
 ============ Private Services Connect ==============
 https://cloud.google.com/vpc/docs/private-service-connect
 1) endpoint based on forwarding rule
@@ -172,7 +196,10 @@ https://cloud.google.com/vpc/docs/private-service-connect
 
 Access API from on-prem (in HUB network) via PSC - https://cloud.google.com/vpc/docs/configure-private-service-connect-apis#on-premises
 
-
+### Cloud Run as backend 
+## Serverless NEG - iLB - only Cloud RUN, eLB - CloudRun/Function/App  https://cloud.google.com/load-balancing/docs/negs/serverless-neg-concepts
+# Setup CloudRUn with regional LB https://cloud.google.com/load-balancing/docs/https/setting-up-reg-ext-https-serverless
+# Setup cloud RUN with HTTP iLB = https://cloud.google.com/load-balancing/docs/l7-internal/setting-up-l7-internal-serverless
 
 
 
